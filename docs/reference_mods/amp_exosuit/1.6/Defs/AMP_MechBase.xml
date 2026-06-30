@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Defs>
+
+  <!-- this is the def of module slot, allowing you to make your own customizable frame system with/without sharing slot with other mech frame type, walker gear framework provied a preset slots in contents, but you can make your own too. -->
+  <Exosuit.SlotDef>
+    <defName>AMP_Core</defName>
+    <label>Amplified Mobility Platform</label>
+    <description>A manned robotic platform common in the early space colonization era.</description>
+    <supportedSlots><!-- what slotDef will this core frame support to mount. --> 
+      <li>ArmLeft</li>
+      <li>ArmRight</li>
+    </supportedSlots>
+    <uiPriority>0</uiPriority><!-- 1~6 for optional slots --> 
+    <isCoreFrame>true</isCoreFrame>
+  </Exosuit.SlotDef>
+
+  <!-- wreckage is an optional building that will hold pilot and modules after a frame got destroyed. --> 
+  <ThingDef ParentName="BuildingBase">
+    <defName>AMP_Disabled</defName>
+    <label>wreckage</label>
+    <description>a destroyed AMP, can restore some useful resource.</description>
+    <thingClass>Exosuit.Building_Wreckage</thingClass>
+    <graphicData>
+      <texPath>Things/AMPSuit/AMP_Disabled</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2.5,2.5)</drawSize>
+      <damageData>
+        <rect>(0.2,0,0.6,0.1)</rect>
+      </damageData>
+    </graphicData>
+    <canOverlapZones>false</canOverlapZones>
+    <altitudeLayer>Building</altitudeLayer>
+    <useHitPoints>true</useHitPoints>
+    <fillPercent>0.75</fillPercent>
+    <size>(2,2)</size>
+    <pathCost>100</pathCost>
+    <passability>PassThroughOnly</passability>
+    <surfaceType>Item</surfaceType>
+    <costList>
+      <Steel>500</Steel>
+      <Uranium>50</Uranium>
+      <ComponentIndustrial>10</ComponentIndustrial>
+      <ComponentSpacer>3</ComponentSpacer>   
+    </costList>
+    <statBases>
+      <MaxHitPoints>500</MaxHitPoints>
+    </statBases>
+    <selectable>true</selectable>
+    <soundImpactDefault>BulletImpact_Ground</soundImpactDefault>
+    <leaveResourcesWhenKilled>true</leaveResourcesWhenKilled>
+    <resourcesFractionWhenDeconstructed>0.25</resourcesFractionWhenDeconstructed>
+  </ThingDef>
+
+  <!-- module, this is how you move / manufact, store and repair a mecha core and mecha part-->
+  <ThingDef ParentName="ModuleItemBase">
+    <defName>AMP_Module</defName>
+    <label>Amplified Mobility Platform(Module)</label>
+    <description>Amplified Mobility Platform, aka AMP suit, A manned robotic platform common in the early space colonization era.</description>
+    <descriptionHyperlinks>
+      <ThingDef>AMP_Core</ThingDef>
+    </descriptionHyperlinks>
+    <smeltProducts>
+      <Steel>350</Steel>
+      <Uranium>40</Uranium>
+    </smeltProducts>
+    <butcherProducts>
+      <Steel>125</Steel>
+      <Uranium>75</Uranium>
+      <ChunkSlagSteel>6</ChunkSlagSteel>
+      <ComponentIndustrial>10</ComponentIndustrial>
+    </butcherProducts>
+    <costList>
+      <Steel>750</Steel>
+      <Uranium>150</Uranium>
+      <ComponentIndustrial>20</ComponentIndustrial>
+      <ComponentSpacer>3</ComponentSpacer>
+    </costList>
+    <graphicData>
+      <texPath>Item/AMP_Module</texPath>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>400</MaxHitPoints>
+      <Mass>100</Mass> <!-- mass does matters-->
+      <Flammability>0</Flammability>
+    </statBases>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>AMP_Core</EquipedThingDef>
+        <occupiedSlots>
+          <li>AMP_Core</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+    <recipeMaker>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <researchPrerequisites>
+        <li>AMP_Core</li>
+      </researchPrerequisites>
+      <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <workAmount>80000</workAmount>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+    <colorGenerator Class="ColorGenerator_Options">
+      <options>
+        <li>
+          <only>(90, 100, 90)</only>
+        </li>
+        <li>
+          <only>(85, 100, 95)</only>
+        </li>
+        <li>
+          <only>(95, 100, 85)</only>
+        </li>
+      </options>
+    </colorGenerator>
+  </ThingDef>
+
+  <!-- apparel-->
+  <ThingDef ParentName="ModuleApparelCore">
+    <defName>AMP_Core</defName>
+    <label>Amplified Mobility Platform</label>
+    <description>Amplified Mobility Platform, aka AMP suit, A manned robotic platform common in the early space colonization era.</description>
+    <thingClass>Exosuit.Exosuit_Core</thingClass> <!-- important, only core part need this -->
+    <uiIconPath>Things/AMPSuit/apparel_south</uiIconPath>
+    <tickerType>Normal</tickerType>
+    <graphicData>
+      <texPath>Things/AMPSuit/AMP</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3)</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>100</Mass>
+      <MoveSpeed>4.2</MoveSpeed>
+      <ArmorRating_Sharp>1.20</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.90</ArmorRating_Blunt>
+      <ArmorRating_Heat>1.00</ArmorRating_Heat>
+      <Insulation_Cold>40</Insulation_Cold>
+      <Insulation_Heat>20</Insulation_Heat>
+    </statBases>
+    <equippedStatOffsets>
+			<CarryingCapacity>350</CarryingCapacity> <!-- frame uses carrying capacity as additional capacity of carrying modules)-->
+      <Flammability>-1</Flammability>
+      <PsychicSensitivity>-0.5</PsychicSensitivity>
+      <ToxicEnvironmentResistance>1</ToxicEnvironmentResistance>
+      <MedicalTendSpeed>-1</MedicalTendSpeed>
+      <MeleeDodgeChance>-1.5</MeleeDodgeChance>
+			<WorkSpeedGlobal>-0.25</WorkSpeedGlobal>
+    </equippedStatOffsets>
+    <apparel>
+      <wornGraphicPath>Things/AMPSuit/apparel</wornGraphicPath>
+      <parentTagDef>WGApparelBody</parentTagDef> <!-- important, or your parts will not rendered at bay.-->
+      <drawData>
+        <scale>1.75</scale>
+        <dataNorth>
+          <layer>5</layer>
+        </dataNorth>
+        <dataSouth>
+          <layer>5</layer>
+        </dataSouth>
+      </drawData>
+    </apparel>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>AMP_Module</ItemDef>
+        <occupiedSlots>
+          <li>AMP_Core</li>
+        </occupiedSlots>
+      </li>
+      <li Class="CompProperties_Styleable" />
+    </comps>
+    <modExtensions>
+      <li Class="Exosuit.ExosuitExt">
+        <wreckageOverride>AMP_Disabled</wreckageOverride>
+      </li>
+      <li MayRequire="oskarpotocki.vanillafactionsexpanded.core" Class="VEF.Apparels.ApparelExtension">
+        <pawnCapacityMinLevels>
+          <li>
+            <capacity>Moving</capacity>
+            <minLevel>0.8</minLevel>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <minLevel>0.8</minLevel>
+          </li>
+        </pawnCapacityMinLevels>
+      </li>
+      <li Class="Exosuit.ApparelRenderOffsets">
+        <headData>
+          <dataWest>
+            <offset>(0,0,0)</offset>
+          </dataWest>
+          <dataEast>
+            <offset>(0,0,0)</offset>
+          </dataEast>
+          <dataSouth>
+            <offset>(0,0,0)</offset>
+          </dataSouth>
+        </headData>
+        <headHideFor>
+          <li>0</li>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+        </headHideFor>
+        <rootData>
+          <defaultData>
+            <offset>(0,0,0.35)</offset>
+          </defaultData>
+        </rootData>
+      </li>
+    </modExtensions>
+  </ThingDef>
+</Defs>	

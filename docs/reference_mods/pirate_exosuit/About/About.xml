@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<packageId>amiti.pirateexosuit</packageId>
+	<name>The Dead Man's Switch - MobileDragoon - Pirate Exosuits</name>
+	<author>Amiti</author>
+	
+	<supportedVersions>
+		<li>1.6</li>
+	</supportedVersions>
+	<incompatibleWith></incompatibleWith>
+	<loadAfter>
+		<li>aoba.exosuit.framework</li>
+		<li>aoba.deadmanswitch.mobiledragoon</li>
+		<li>ceteam.combatextended</li>
+	</loadAfter>
+    <modDependencies>
+        <li>
+			<packageId>aoba.exosuit.framework</packageId>
+			<displayName>Exosuit Framework</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3352894993</steamWorkshopUrl>
+		</li>
+		        <li>
+			<packageId>aoba.deadmanswitch.mobiledragoon</packageId>
+			<displayName>The Dead Man's Switch - Mobile Dragoon</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3352894993</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+	<description>Attempting mod</description>
+</ModMetaData>

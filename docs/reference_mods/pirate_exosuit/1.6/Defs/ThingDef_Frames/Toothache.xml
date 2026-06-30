@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Brawnson Module -->
+  <ThingDef ParentName="ModuleItemBase">
+    <defName>Amiti_Apparel_Pirate_Toothache_Core</defName>
+    <label>FW-M "Toothache" core module</label>
+    <description>An exosuit converted from the hulk of an “Medium” autonomous warwalker, originating from a rimworld long lost in the fires of total war. The original warwalker was used to safeguard important personnel, with internal medical diagnostic systems and a wide profile to provide cover for VIP’s or assault team leaders.</description>
+	<graphicData>
+      <texPath>Things/Item/ModuleP</texPath>
+    </graphicData>
+	
+    <descriptionHyperlinks>
+      <ThingDef>Amiti_Apparel_Pirate_Toothache</ThingDef>
+    </descriptionHyperlinks>
+	
+    <statBases>
+      <MaxHitPoints>280</MaxHitPoints>
+      <Mass>120</Mass>
+    </statBases>
+	
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>Amiti_Apparel_Pirate_Toothache</EquipedThingDef>
+        <occupiedSlots>
+          <li>Core</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+	
+	    <recipeMaker>
+      <researchPrerequisite>DMS_MobileDragoon</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+	   <recipeUsers>
+        <li>FabricationBench</li>
+      </recipeUsers>
+      <workAmount>80000</workAmount>
+	  <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+	
+    <smeltProducts>
+      <Steel>200</Steel>
+      <Tungsteel>240</Tungsteel>
+    </smeltProducts>
+	
+    <butcherProducts>
+      <Tungsteel>200</Tungsteel>
+      <Artifuscle>110</Artifuscle>
+      <Steel>75</Steel>
+      <ChunkSlagSteel>3</ChunkSlagSteel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+      <ComponentStamped>4</ComponentStamped>
+    </butcherProducts>
+	
+    <costList>
+      <Tungsteel>350</Tungsteel>
+      <Artifuscle>200</Artifuscle>
+      <Steel>200</Steel>
+      <ComponentStamped>18</ComponentStamped>
+      <ComponentIndustrial>6</ComponentIndustrial>
+      <Neurocomputer>1</Neurocomputer>
+    </costList>
+	
+  </ThingDef>
+
+  <ThingDef ParentName="ModuleApparelCore">
+    <defName>Amiti_Apparel_Pirate_Toothache</defName>
+    <label>FW-M "Toothache" core module</label>
+    <description>An exosuit converted from the hulk of an “Medium” autonomous warwalker, originating from a rimworld long lost in the fires of total war. The original warwalker was used to safeguard important personnel, with internal medical diagnostic systems and a wide profile to provide cover for VIP’s or assault team leaders.</description>
+	<thingClass>Exosuit.Exosuit_Core</thingClass>
+	 <uiIconPath>Things/Dragoon/Toothache/apparelToothache_south</uiIconPath>
+    <graphicData>
+      <texPath>Things/Dragoon/Toothache/Toothache</texPath>
+	  <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3)</drawSize>
+    </graphicData>
+    <tickerType>Normal</tickerType>
+    <descriptionHyperlinks>
+      <ThingDef>Amiti_Apparel_Pirate_Toothache_Core</ThingDef>
+    </descriptionHyperlinks>
+	<comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>Amiti_Apparel_Pirate_Toothache_Core</ItemDef>
+        <occupiedSlots>
+          <li>Core</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+	
+    <statBases>
+      <Mass>120</Mass>
+      <MoveSpeed>8.2</MoveSpeed>
+      <ArmorRating_Sharp>1.40</ArmorRating_Sharp>
+      <ArmorRating_Blunt>1.10</ArmorRating_Blunt>
+      <ArmorRating_Heat>0.86</ArmorRating_Heat>
+      <Insulation_Cold>56</Insulation_Cold>
+      <Insulation_Heat>82</Insulation_Heat>
+    </statBases>
+	
+    <equippedStatOffsets>
+      <VacuumResistance MayRequire="ludeon.rimworld.odyssey">0.35</VacuumResistance>
+      <CarryingCapacity>320</CarryingCapacity>
+      <CarryWeight MayRequire="ceteam.combatextended">270</CarryWeight>
+      <WorkSpeedGlobal>-0.35</WorkSpeedGlobal>
+      <DecompressionResistance MayRequire="kentington.saveourship2">0.75</DecompressionResistance>
+    </equippedStatOffsets>
+	
+    <apparel>
+      <wornGraphicPath>Things/Dragoon/Toothache/apparelToothache</wornGraphicPath>
+	  <parentTagDef>WGApparelBody</parentTagDef>
+      <drawData>
+        <dataNorth>
+          <layer>5</layer>
+        </dataNorth>
+        <scale>1.5</scale>
+      </drawData>
+		<bodyPartGroups>
+        <li>Torso</li>
+        <li>Shoulders</li>
+        <li>Arms</li>
+        <li>Legs</li>
+        <li>Feet</li>
+        <li>Hands</li>
+      </bodyPartGroups>
+      <layers>
+        <li>Shell</li>
+        <li>WG_WalkerGearLayer_Core</li>
+      </layers>
+      <renderSkipFlags>
+          <li>Body</li>
+      </renderSkipFlags>
+    </apparel>
+	
+    <modExtensions>
+      <li Class="Exosuit.ApparelRenderOffsets">
+        <headData>
+          <dataWest>
+            <offset>(-0.29,0,0.44)</offset>
+          </dataWest>
+          <dataEast>
+            <offset>(0.29,0,0.44)</offset>
+          </dataEast>
+          <dataSouth>
+            <offset>(0.00,0,0.40)</offset>
+          </dataSouth>
+          <dataNorth>
+            <offset>(0.00,0,0.40)</offset>
+          </dataNorth>
+        </headData>
+        <headHideFor>
+          <li>0</li>
+        </headHideFor>
+        <rootData>
+          <defaultData>
+            <offset>(0,0,0.26)</offset>
+          </defaultData>
+        </rootData>
+        <equipmentOffsetData>
+          <dataWest>
+            <offset>(-0.35,-1,0.6)</offset>
+          </dataWest>
+          <dataEast>
+            <offset>(0.25,0,0)</offset>
+          </dataEast>
+          <dataSouth>
+            <offset>(-0.25,0,0)</offset>
+          </dataSouth>
+          <dataNorth>
+            <offset>(0.25,0,0)</offset>
+          </dataNorth>
+        </equipmentOffsetData>
+      </li>
+    </modExtensions>
+  </ThingDef>
+  
+  <!-- Brawnson helmot module -->
+  <ThingDef ParentName="ModuleItemHead">
+    <defName>Amiti_Pirate_Toothache_Module_Helmet</defName>
+    <label>FW-M "Toothache" helmet</label>
+    <description>An exohelm converted from a derelict “Medium” autonomous warwalker. While it originates from a rimworld long lost in the fires of total war; the visor contains multiple sensors and scanning modules permitting the quick health inspection of important personnel. These same computation and scanning capabilities can also inversely be applied to target acquisition and thermal imaging.</description>
+	
+	<graphicData>
+      <texPath>Things/Item/ModuleP</texPath>
+    </graphicData>
+	
+    <descriptionHyperlinks>
+      <ThingDef>Amiti_Apparel_Pirate_Toothache_Helmet</ThingDef>
+    </descriptionHyperlinks>
+	
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Mass>60</Mass>
+    </statBases>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>Amiti_Apparel_Pirate_Toothache_Helmet</EquipedThingDef>
+        <occupiedSlots>
+          <li>Head</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+	
+    <recipeMaker>
+      <researchPrerequisite>DMS_MobileDragoon</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <workAmount>30000</workAmount>
+	  <recipeUsers>
+	  <li>FabricationBench</li>
+      </recipeUsers>
+      <workAmount>20000</workAmount>
+	  <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+	
+    <smeltProducts>
+      <Steel>80</Steel>
+      <Plasteel>45</Plasteel>
+    </smeltProducts>
+	
+    <butcherProducts>
+      <Plasteel>40</Plasteel>
+      <Steel>10</Steel>
+      <ChunkSlagSteel>2</ChunkSlagSteel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+      <ComponentStamped>3</ComponentStamped>
+    </butcherProducts>
+	
+    <costList>
+      <Plasteel>125</Plasteel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+      <ComponentStamped>6</ComponentStamped>
+      <ComponentSpacer>2</ComponentSpacer>
+	  <Neurocomputer>3</Neurocomputer>
+    </costList>
+  </ThingDef>
+  
+  
+  <ThingDef ParentName="ModuleApparelHead">
+    <defName>Amiti_Apparel_Pirate_Toothache_Helmet</defName>
+    <label>FW-M "Toothache" helmet</label>
+    <description>An exohelm converted from a derelict “Medium” autonomous warwalker. While it originates from a rimworld long lost in the fires of total war; the visor contains multiple sensors and scanning modules permitting the quick health inspection of important personnel. These same computation and scanning capabilities can also inversely be applied to target acquisition and thermal imaging.</description>
+	
+    <graphicData>
+      <texPath>Things/Dragoon/Toothache/helmetToothache_south</texPath>
+    </graphicData>
+	
+    <descriptionHyperlinks>
+      <ThingDef>Amiti_Pirate_Toothache_Module_Helmet</ThingDef>
+    </descriptionHyperlinks>
+	
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Mass>60</Mass>
+    </statBases>
+	
+    <equippedStatOffsets>
+      <MoveSpeed>-0.3</MoveSpeed>
+	  <ShootingAccuracyPawn>2.5</ShootingAccuracyPawn>
+	  <AimingDelayFactor>-0.75</AimingDelayFactor>
+	  <MedicalTendSpeed>3</MedicalTendSpeed>
+	  <MedicalTendQuality>-0.5</MedicalTendQuality>
+      <VacuumResistance MayRequire="ludeon.rimworld.odyssey">0.5</VacuumResistance>
+      <HypoxiaResistance MayRequire="kentington.saveourship2">1</HypoxiaResistance>
+      <DecompressionResistance MayRequire="kentington.saveourship2">0.25</DecompressionResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <immuneToToxGasExposure>true</immuneToToxGasExposure>
+      <wornGraphicPath>Things/Dragoon/Toothache/helmetToothache</wornGraphicPath>
+      <tags>
+        <li>EVA</li>
+      </tags>
+	 <drawData>
+	 <scale>0.65</scale>
+          <dataWest>
+            <offset>(0.10,0,0.10)</offset>
+          </dataWest>
+          <dataEast>
+            <offset>(-0.10,0,0.10)</offset>
+          </dataEast>
+          <dataSouth>
+            <offset>(0,0,0.10)</offset>
+          </dataSouth>
+      </drawData>
+    </apparel>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>Amiti_Pirate_Toothache_Module_Helmet</ItemDef>
+        <occupiedSlots>
+          <li>Head</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

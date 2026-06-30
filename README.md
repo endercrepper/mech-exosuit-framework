@@ -114,7 +114,11 @@ Le mod analizzate come riferimento per il design sono in `docs/reference_mods/`:
 | Mod | packageId | Ruolo nel progetto |
 |---|---|---|
 | Exosuit Framework | `aoba.exosuit.framework` | Hard dependency — fornisce SlotDef, Building_MaintenanceBay, ITab_Exosuit |
-| Helldivers Patriot Exosuit | `Aqued.Exosuits` | Caso pilota per la mech-ificazione |
+| Helldivers Patriot Exosuit | `Aqued.Exosuits` | Soft — caso pilota combat ranged |
+| Amplified Mobility Platform | `Aoba.Exosuit.AMP` | Soft — combat versatile, ha Building_Wreckage riusabile |
+| The Dead Man's Switch - MobileDragoon | `Aoba.DeadManSwitch.MobileDragoon` | Soft — PV-8 Zyklop scout veloce |
+| Pirate Exosuits (MobileDragoon) | `amiti.pirateexosuit` | Soft — Brawnson tank |
+| P-5000 Powered Work Loader | `Aoba.Exosuit.PowerLoader` | Soft — utility (hauling + mining) |
 | SubcoreInfo | `eth0net.SubcoreInfo` | Soft dependency — preserva identità pawn scansionato |
 
 > ⚠️ I file in `docs/reference_mods/` sono di proprietà dei rispettivi autori e sono inclusi qui solo per riferimento di sviluppo. Non distribuire.
@@ -142,18 +146,18 @@ Le mod analizzate come riferimento per il design sono in `docs/reference_mods/`:
 ## 🚧 Stato del progetto
 
 - [x] Concept & vision
-- [x] Design document v0.1
-- [x] Analisi mod di riferimento
+- [x] Design document v0.1 (73 pagine)
+- [x] Analisi 7 mod di riferimento (Exosuit Framework + 5 exosuit + SubcoreInfo)
 - [x] Architettura C# (su carta)
 - [x] Schema Defs XML (su carta)
-- [x] Bilanciamento caso pilota Patriot
+- [x] Bilanciamento per 5 suit pilota (Patriot, AMP, Mobile Dragon, Pirate Brawnson, Powered Work Loader)
 - [x] Roadmap MVP
 - [ ] Implementazione M0 — Hello World Mech
 - [ ] Implementazione M1 — Subcore Install
 - [ ] Implementazione M2 — Death & Relic
 - [ ] Implementazione M3 — Bay Ibrida
 - [ ] Implementazione M4-M7
-- [ ] Aggiunta altre suit (AMP, Mobile Dragon, ...)
+- [ ] Aggiunta altri frame per suit multi-frame (Mobile Dragon AT34/FA47/PF3/PV4, Pirate PPV4/Toothache)
 - [ ] Pubblicazione Steam Workshop v1.0
 
 ## ⚠️ Note

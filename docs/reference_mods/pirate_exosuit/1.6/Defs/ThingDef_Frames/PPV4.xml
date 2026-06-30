@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- PiratePV4/7 Modulee-->
+  <ThingDef ParentName="ModuleItemBase">
+    <defName>Amiti_Module_Pirate_PV4_Core</defName>
+    <label>Salvaged PV4-7 "Reaver" core module</label>
+    <description>A Dragoon made from an old PV4 model chassis lost in conflict and salvaged F/A-47 frame, a product of both defiance and desperation.</description>
+	
+	<graphicData>
+      <texPath>Things/Item/ModuleP</texPath>
+    </graphicData>
+	
+    <descriptionHyperlinks>
+      <ThingDef>Amiti_Apparel_Pirate_PV4_Reaver</ThingDef>
+    </descriptionHyperlinks>
+	
+    <statBases>
+      <MaxHitPoints>190</MaxHitPoints>
+      <Mass>75</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+	
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>Amiti_Apparel_Pirate_PV4_Reaver</EquipedThingDef>
+        <occupiedSlots>
+          <li>Core</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+	
+    <recipeMaker>
+      <researchPrerequisite>DMS_MobileDragoon</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+	   <recipeUsers>
+        <li>FabricationBench</li>
+      </recipeUsers>
+      <workAmount>80000</workAmount>
+	  <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+	
+    <smeltProducts>
+      <Steel>75</Steel>
+      <Tungsteel>55</Tungsteel>
+      <Plasteel>90</Plasteel>
+    </smeltProducts>
+	
+    <butcherProducts>
+      <ComponentStamped>6</ComponentStamped>
+      <ComponentIndustrial>4</ComponentIndustrial>
+      <ChunkSlagSteel>6</ChunkSlagSteel>
+      <Artifuscle>75</Artifuscle>
+    </butcherProducts>
+	
+    <costList>
+      <Plasteel>300</Plasteel>
+      <Artifuscle>100</Artifuscle>
+      <Tungsteel>150</Tungsteel>
+      <ComponentStamped>8</ComponentStamped>
+      <ComponentIndustrial>12</ComponentIndustrial>
+      <Neurocomputer>1</Neurocomputer>
+    </costList>
+	  
+  </ThingDef>
+
+  <!-- F/A-47 PPV4 Apparel Section，Can increase jump distance -->
+  <ThingDef ParentName="ModuleApparelCore">
+    <defName>Amiti_Apparel_Pirate_PV4_Reaver</defName>
+    <label>Salvaged PV4-7 "Reaver" frame</label>
+    <description>A Dragoon made from an old PV4 model chassis lost in conflict and salvaged F/A-47 frame, a product of both defiance and desperation.</description>
+	<thingClass>Exosuit.Exosuit_Core</thingClass>
+	 <uiIconPath>Things/Dragoon/PPV4/apparel_south</uiIconPath>
+    <graphicData>
+      <texPath>Things/Dragoon/PPV4/apparel</texPath>
+	  <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3)</drawSize>
+    </graphicData>
+    <tickerType>Normal</tickerType>
+    <descriptionHyperlinks>
+      <ThingDef>Amiti_Module_Pirate_PV4_Core</ThingDef>
+    </descriptionHyperlinks>
+	<comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>Amiti_Module_Pirate_PV4_Core</ItemDef>
+        <occupiedSlots>
+          <li>Core</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+	
+    <statBases>
+      <Mass>80</Mass>
+      <ArmorRating_Sharp>1.04</ArmorRating_Sharp>
+      <ArmorRating_Blunt>0.55</ArmorRating_Blunt>
+      <ArmorRating_Heat>1.30</ArmorRating_Heat>
+      <MoveSpeed>7.2</MoveSpeed>
+      <Insulation_Cold>104</Insulation_Cold>
+      <Insulation_Heat>128</Insulation_Heat>
+    </statBases>
+	
+    <equippedStatOffsets>
+      <MF_FlightRange>24</MF_FlightRange>
+      <CarryingCapacity>275</CarryingCapacity>
+      <CarryWeight MayRequire="ceteam.combatextended">275</CarryWeight>
+      <VacuumResistance MayRequire="ludeon.rimworld.odyssey">0.6</VacuumResistance>
+      <VacuumSpeedMultiplier MayRequire="kentington.saveourship2">4</VacuumSpeedMultiplier>
+      <DecompressionResistance MayRequire="kentington.saveourship2">0.8</DecompressionResistance>
+    </equippedStatOffsets>
+	
+    <apparel>
+      <wornGraphicPath>Things/Dragoon/PPV4/apparel</wornGraphicPath>
+      <parentTagDef>WGApparelBody</parentTagDef>
+      <drawData>
+        <scale>2.25</scale>
+        <dataNorth>
+          <layer>5</layer>
+        </dataNorth>
+      </drawData>
+		<bodyPartGroups>
+        <li>Torso</li>
+        <li>Shoulders</li>
+        <li>Arms</li>
+        <li>Legs</li>
+        <li>Feet</li>
+        <li>Hands</li>
+      </bodyPartGroups>
+      <layers>
+        <li>Shell</li>
+        <li>WG_WalkerGearLayer_Core</li>
+      </layers>
+      <renderSkipFlags>
+          <li>Body</li>
+      </renderSkipFlags>
+    </apparel>
+	
+    <modExtensions>
+      <li Class="Exosuit.ApparelRenderOffsets">
+        <headData>
+          <dataWest>
+            <offset>(-0.29,0,0.44)</offset>
+          </dataWest>
+          <dataEast>
+            <offset>(0.29,0,0.44)</offset>
+          </dataEast>
+          <dataSouth>
+            <offset>(0.00,0,0.40)</offset>
+          </dataSouth>
+          <dataNorth>
+            <offset>(0.00,0,0.40)</offset>
+          </dataNorth>
+        </headData>
+        <headHideFor>
+          <li>0</li>
+        </headHideFor>
+        <rootData>
+          <defaultData>
+            <offset>(0,0,0.26)</offset>
+          </defaultData>
+        </rootData>
+        <equipmentOffsetData>
+          <dataWest>
+            <offset>(-0.35,-1,0.6)</offset>
+          </dataWest>
+          <dataEast>
+            <offset>(0.25,0,0)</offset>
+          </dataEast>
+          <dataSouth>
+            <offset>(-0.25,0,0)</offset>
+          </dataSouth>
+          <dataNorth>
+            <offset>(0.25,0,0)</offset>
+          </dataNorth>
+        </equipmentOffsetData>
+      </li>
+    </modExtensions>
+	
+  </ThingDef>
+  
+  
+  <!-- PV-4/7 Helmet -->
+  <ThingDef ParentName="ModuleItemHead">
+    <defName>Amiti_Pirate_PV4_Module_Helmet</defName>
+    <label>Salvaged PV4-7 "Reaver" helmet</label>
+    <description>A salvaged, well used helmet featuring many scars of past battles from previous owners. Much of the internals have been replaced and its protective efficacy weakened. Yet it is still able to provide substantial protection.</description>
+    
+	<graphicData>
+      <texPath>Things/Item/ModuleP</texPath>
+    </graphicData>
+	
+	<descriptionHyperlinks>
+      <ThingDef>Amiti_Apparel_Pirate_PV4_Reaver_Helmet</ThingDef>
+    </descriptionHyperlinks>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>18</Mass>
+    </statBases>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>Amiti_Apparel_Pirate_PV4_Reaver_Helmet</EquipedThingDef>
+        <occupiedSlots>
+          <li>Head</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+    <recipeMaker>
+      <researchPrerequisite>DMS_MobileDragoon</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>12</Crafting>
+      </skillRequirements>
+	  <recipeUsers>
+        <li>FabricationBench</li>
+      </recipeUsers>
+      <workAmount>20000</workAmount>
+	  <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>15</Steel>
+      <Plasteel>25</Plasteel>
+    </smeltProducts>
+    <butcherProducts>
+      <ComponentStamped>2</ComponentStamped>
+	  <ComponentIndustrial>4</ComponentIndustrial>
+      <Plasteel>35</Plasteel>
+    </butcherProducts>
+    <costList>
+      <Plasteel>80</Plasteel>
+      <ComponentSpacer>1</ComponentSpacer>
+      <ComponentStamped>3</ComponentStamped>
+	  <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+  </ThingDef>
+    <!-- PV-4/7 Helmet Apparel-->
+  <ThingDef ParentName="ModuleApparelHead">
+    <defName>Amiti_Apparel_Pirate_PV4_Reaver_Helmet</defName>
+    <label>Salvaged PV4-7 "Reaver" helmet</label>
+    <description>A salvaged, well used helmet featuring many scars of past battles from previous owners. Much of the internals have been replaced and its protective efficacy weakened. Yet it is still able to provide substantial protection.</description>
+    <graphicData>
+      <texPath>Things/Dragoon/PPV4/helmet_south</texPath>
+    </graphicData>
+    <descriptionHyperlinks>
+      <ThingDef>Amiti_Pirate_PV4_Module_Helmet</ThingDef>
+    </descriptionHyperlinks>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Mass>18</Mass>
+    </statBases>
+    <equippedStatOffsets>
+      <ShootingAccuracyPawn>2</ShootingAccuracyPawn>
+      <MoveSpeed>-0.10</MoveSpeed>
+      <VacuumResistance MayRequire="ludeon.rimworld.odyssey">0.6</VacuumResistance>
+      <HypoxiaResistance MayRequire="kentington.saveourship2">1</HypoxiaResistance>
+      <DecompressionResistance MayRequire="kentington.saveourship2">0.25</DecompressionResistance>
+    </equippedStatOffsets>
+    <apparel>
+      <immuneToToxGasExposure>true</immuneToToxGasExposure>
+      <wornGraphicPath>Things/Dragoon/PPV4/helmet</wornGraphicPath>
+      <tags>
+        <li>EVA</li>
+      </tags>
+    </apparel>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>Amiti_Pirate_PV4_Module_Helmet</ItemDef>
+        <occupiedSlots>
+          <li>Head</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--GAU-90-->
+  <ThingDef ParentName="ModuleItemBase" MayRequire="ludeon.rimworld.anomaly"><!--module-->
+    <defName>AMP_Module_Flamer</defName>
+    <label>AMP Flamer Pistol</label>
+    <description>Bush Boss FD-11 is a flamethrower used by AMP suit and unusable for humans. this is a non-combat tool for deforestation but pilots soon find out other good use of it.</description>
+    <descriptionHyperlinks>
+      <ThingDef>AMP_Weapon_Flamer</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Item/AMP_Flamer</texPath>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Mass>55.25</Mass>
+    </statBases>
+    <recipeMaker>
+      <researchPrerequisites>
+        <li>AMP_Core</li>
+      </researchPrerequisites>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <workAmount>30000</workAmount>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+    <costList>
+      <Steel>100</Steel>
+      <Chemfuel>120</Chemfuel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>AMP_Apparel_Flamer</EquipedThingDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ModuleApparelBase" MayRequire="ludeon.rimworld.anomaly"><!--apprel-->
+    <defName>AMP_Apparel_Flamer</defName>
+    <label>AMP Flamer Pistol</label>
+    <description>Bush Boss FD-11 is a flamethrower used by AMP suit and unusable for humans. this is a non-combat tool for deforestation but pilots soon find out other good use of it.</description>
+    <descriptionHyperlinks>
+      <ThingDef>AMP_Weapon_Flamer</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Things/Weapons/AMP_Flamer</texPath>
+    </graphicData>
+    <statBases>
+      <Mass>55.25</Mass>
+    </statBases>
+    <apparel>
+      <parentTagDef>WGApparelBody</parentTagDef> <!-- important, or your parts will not rendered at bay.-->
+      <bodyPartGroups>
+        <li>Shoulders</li>
+      </bodyPartGroups>
+      <layers>
+        <li>ExosuitLayer_Core</li>
+      </layers>
+    </apparel>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>AMP_Module_Flamer</ItemDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+      <li Class="Exosuit.CompProperties_ModuleWeapon">
+        <weapon>AMP_Weapon_Flamer</weapon>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseWalkerWeapon" MayRequire="ludeon.rimworld.anomaly"><!--weapon-->
+    <defName>AMP_Weapon_Flamer</defName>
+    <label>AMP Flamer Pistol</label>
+    <description>Bush Boss FD-11 is a flamethrower used by AMP suit and unusable for humans. this is a non-combat tool for deforestation but pilots soon find out other good use of it.</description>
+    <graphicData>
+      <texPath>Things/Weapons/AMP_Flamer</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>2.5</drawSize>
+    </graphicData>
+    <statBases>
+      <MarketValue>1450</MarketValue>
+      <Mass>0</Mass>
+      <AccuracyTouch>0.70</AccuracyTouch>
+      <AccuracyShort>0.72</AccuracyShort>
+      <AccuracyMedium>0.60</AccuracyMedium>
+      <AccuracyLong>0.4</AccuracyLong>
+      <RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_ArcSprayIncinerator</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <warmupTime>0.5</warmupTime>
+        <range>16.9</range>
+        <minRange>2.9</minRange>
+        <beamFullWidthRange>15</beamFullWidthRange>
+        <burstShotCount>20</burstShotCount>
+        <showBurstShotStats>false</showBurstShotStats>
+        <requireLineOfSight>true</requireLineOfSight>
+        <beamWidth>8</beamWidth>
+        <ticksBetweenBurstShots>2</ticksBetweenBurstShots>
+        <beamDamageDef>Flame</beamDamageDef>
+        <soundCastTail>GunTail_Medium</soundCastTail>
+        <muzzleFlashScale>9</muzzleFlashScale>
+        <soundCastBeam>Flamethrower_Firing</soundCastBeam>
+        <beamGroundFleckDef>Fleck_IncineratorBeamBurn</beamGroundFleckDef>
+        <beamFleckChancePerTick>0.32</beamFleckChancePerTick>
+        <beamMaxDeviation>0.5</beamMaxDeviation>
+        <beamCurvature>0</beamCurvature>
+        <beamEndEffecterDef>IncineratorBeam_End</beamEndEffecterDef> 
+        <beamChanceToStartFire>0.95</beamChanceToStartFire>
+        <beamFireSizeRange>0.85~1.25</beamFireSizeRange>
+        <beamStartOffset>.5</beamStartOffset>
+        <beamHitsNeighborCells>true</beamHitsNeighborCells>
+        <beamCantHitWithinMinRange>true</beamCantHitWithinMinRange>
+        <beamHitsNeighborCellsRequiresLOS>true</beamHitsNeighborCellsRequiresLOS>
+        <beamSetsGroundOnFire>true</beamSetsGroundOnFire>
+        <ai_BeamIsIncendiary>true</ai_BeamIsIncendiary>
+        <beamLineFleckDef>Fleck_IncineratorBeamSmoke</beamLineFleckDef>
+        <highlightColor>(180, 60, 10)</highlightColor>
+        <secondaryHighlightColor>(220, 210, 20)</secondaryHighlightColor>
+        <beamLineFleckChanceCurve>
+          <points>
+            <li>(0, 0)</li>
+            <li>(0.65, 0.02)</li>
+            <li>(1, .5)</li>
+          </points>
+        </beamLineFleckChanceCurve>
+        <targetParams>
+          <canTargetLocations>true</canTargetLocations>
+        </targetParams>
+        <flammabilityAttachFireChanceCurve>
+          <points>
+            <li>(0.6, 0)</li>
+            <li>(0.7, 0.2)</li>
+            <li>(1.2, 0.8)</li>
+          </points>
+        </flammabilityAttachFireChanceCurve>
+        <rangedFireRulepack>Combat_RangedFlamethrower</rangedFireRulepack>
+      </li>
+    </verbs>
+    <tools>
+      <li>
+        <label>barrel</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>9</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+    </tools>
+  </ThingDef>
+</Defs>	

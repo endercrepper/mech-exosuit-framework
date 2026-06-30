@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--GAU-90-->
+  <ThingDef ParentName="ModuleItemBase"><!--module-->
+    <defName>AMP_Module_PT</defName>
+    <label>AMP Pistol</label>
+    <description>a 30mm-caliber pistol used by AMP suit and unusable for humans. this is the smallest firearm for exosuit, but remain heavy and deadly.</description>
+    <descriptionHyperlinks>
+      <ThingDef>AMP_Weapon_PT</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Item/AMP_PT</texPath>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Mass>10.25</Mass>
+    </statBases>
+    <recipeMaker>
+      <researchPrerequisites>
+        <li>AMP_Core</li>
+      </researchPrerequisites>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <workAmount>30000</workAmount>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+    <costList>
+      <Steel>100</Steel>
+      <Uranium>25</Uranium>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>AMP_Apparel_PT</EquipedThingDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ModuleApparelBase"><!--apprel-->
+    <defName>AMP_Apparel_PT</defName>
+    <label>AMP Pistol</label>
+    <description>a 30mm-caliber pistol used by AMP suit and unusable for humans. this is the smallest firearm for exosuit, but remain heavy and deadly.</description>
+    <descriptionHyperlinks>
+      <ThingDef>AMP_Weapon_PT</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Things/Weapons/AMP_PT</texPath>
+    </graphicData>
+    <statBases>
+      <Mass>10.25</Mass>
+    </statBases>
+    <apparel>
+      <parentTagDef>WGApparelBody</parentTagDef> <!-- important, or your parts will not rendered at bay.-->
+      <bodyPartGroups>
+        <li>Shoulders</li>
+      </bodyPartGroups>
+      <layers>
+        <li>ExosuitLayer_Core</li>
+      </layers>
+    </apparel>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>AMP_Module_PT</ItemDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+      <li Class="Exosuit.CompProperties_ModuleWeapon">
+        <weapon>AMP_Weapon_PT</weapon>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseWalkerWeapon"><!--weapon-->
+    <defName>AMP_Weapon_PT</defName>
+    <label>AMP Pistol</label>
+    <description>a 30mm-caliber pistol used by AMP suit and unusable for humans. this is the smallest firearm for exosuit, but remain heavy and deadly.</description>
+    <graphicData>
+      <texPath>Things/Weapons/AMP_PT</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1.25</drawSize>
+    </graphicData>
+    <statBases>
+      <MarketValue>1000</MarketValue>
+      <Mass>0</Mass>
+      <AccuracyTouch>0.70</AccuracyTouch>
+      <AccuracyShort>0.72</AccuracyShort>
+      <AccuracyMedium>0.60</AccuracyMedium>
+      <AccuracyLong>0.4</AccuracyLong>
+      <RangedWeapon_Cooldown>0.8</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <defaultProjectile>Bullet_AutocannonTurret</defaultProjectile>
+        <warmupTime>0.75</warmupTime>
+        <range>24.9</range>
+        <burstShotCount>1</burstShotCount>
+        <soundCast>Shot_TurretSniper</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>9</muzzleFlashScale>
+      </li>
+    </verbs>
+    <tools>
+      <li>
+        <label>barrel</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>9</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+    </tools>
+		<modExtensions>
+			<li Class="MuzzleFlash.MuzzleFlashProps" MayRequire="IssacZhuang.MuzzleFlash">
+				<def>MF_StandardMuzzleFalsh</def>
+				<drawSize>(1.75,1.75)</drawSize>
+				<offsets>
+					<li>(0.25,0.1)</li>
+				</offsets>
+				<isAlternately>false</isAlternately>
+			</li>
+    </modExtensions>
+  </ThingDef>
+</Defs>	

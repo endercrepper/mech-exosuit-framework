@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--GAU-90-->
+  <ThingDef ParentName="ModuleItemBase"><!--module-->
+    <defName>AMP_Module_SMG</defName>
+    <label>AMP Submachine Gun</label>
+    <description>a 30mm-caliber sub-machine gun used by AMP suit and unusable for humans. it has a shorter length and less weight so it can be used in one hand with better performance in close-range gun fights.</description>
+    <descriptionHyperlinks>
+      <ThingDef>AMP_Weapon_SMG</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Item/AMP_SMG</texPath>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Mass>40.70</Mass>
+    </statBases>
+    <recipeMaker>
+      <researchPrerequisites>
+        <li>AMP_Rifle</li>
+      </researchPrerequisites>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <workAmount>30000</workAmount>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+    <costList>
+      <Steel>150</Steel>
+      <Uranium>50</Uranium>
+      <ComponentIndustrial>6</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>AMP_Apparel_SMG</EquipedThingDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ModuleApparelBase"><!--apprel-->
+    <defName>AMP_Apparel_SMG</defName>
+    <label>AMP Submachine Gun</label>
+    <description>a 30mm-caliber sub-machine gun used by AMP suit and unusable for humans. it has a shorter length and less weight so it can be used in one hand with better performance in close-range gun fights.</description>
+    <descriptionHyperlinks>
+      <ThingDef>AMP_Weapon_SMG</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Things/Weapons/AMP_SMG</texPath>
+    </graphicData>
+    <statBases>
+      <Mass>40.70</Mass>
+    </statBases>
+    <apparel>
+      <parentTagDef>WGApparelBody</parentTagDef> <!-- important, or your parts will not rendered at bay.-->
+      <bodyPartGroups>
+        <li>Shoulders</li>
+      </bodyPartGroups>
+      <layers>
+        <li>ExosuitLayer_Core</li>
+      </layers>
+    </apparel>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>AMP_Module_SMG</ItemDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+      <li Class="Exosuit.CompProperties_ModuleWeapon">
+        <weapon>AMP_Weapon_SMG</weapon>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseWalkerWeapon"><!--weapon-->
+    <defName>AMP_Weapon_SMG</defName>
+    <label>AMP Submachine Gun</label>
+    <description>a 30mm-caliber sub-machine gun used by AMP suit and unusable for humans. it has a shorter length and less weight so it can be used in one hand with better performance in close-range gun fights.</description>
+    <graphicData>
+      <texPath>Things/Weapons/AMP_SMG</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>2</drawSize>
+    </graphicData>
+    <statBases>
+      <MarketValue>1250</MarketValue>
+      <Mass>0</Mass>
+      <AccuracyTouch>0.70</AccuracyTouch>
+      <AccuracyShort>0.72</AccuracyShort>
+      <AccuracyMedium>0.60</AccuracyMedium>
+      <AccuracyLong>0.4</AccuracyLong>
+      <RangedWeapon_Cooldown>1.0</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <defaultProjectile>Bullet_AutocannonTurret</defaultProjectile>
+        <warmupTime>0.75</warmupTime>
+        <range>29.9</range>
+        <ticksBetweenBurstShots>4</ticksBetweenBurstShots>
+        <burstShotCount>3</burstShotCount>
+        <soundCast>Shot_TurretSniper</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>9</muzzleFlashScale>
+      </li>
+    </verbs>
+    <tools>
+      <li>
+        <label>barrel</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>9</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+    </tools>
+		<modExtensions>
+			<li Class="MuzzleFlash.MuzzleFlashProps" MayRequire="IssacZhuang.MuzzleFlash">
+				<def>MF_StandardMuzzleFalsh</def>
+				<drawSize>(1.75,1.75)</drawSize>
+				<offsets>
+					<li>(0.5,0.1)</li>
+				</offsets>
+				<isAlternately>false</isAlternately>
+			</li>
+    </modExtensions>
+  </ThingDef>
+</Defs>	
