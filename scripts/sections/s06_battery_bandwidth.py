@@ -29,23 +29,22 @@ def build_section_06(story, ctx):
     story.append(body(
         "Il <code>CompMechExosuitBattery</code> traccia l'energia del "
         "mech-exosuit come valore normalizzato 0..1, con consumo di "
-        "<code>1/maxEnergyTicks</code> per tick. Per default, "
-        "<code>maxEnergyTicks = 36.000</code> (~12 ore di gioco a velocità "
-        "normale), ma il valore è configurabile per-tier via XML: i "
-        "subcore High estendono la batteria a 54.000 ticks (~18 ore)."
+        "<code>1/maxEnergyTicks</code> per tick. La <code>maxEnergyTicks</code> "
+        "dipende da <b>due fattori</b>: la suit (ogni suit ha un consumo "
+        "diverso in base a MoveSpeed, armor e sistemi attivi) e il tier "
+        "del subcore installato. <b>Il subcore High consuma più energia "
+        "del Standard</b> — il processore più potente assorbe di più."
     ))
     
-    headers = ['Tier subcore', 'maxEnergyTicks', '~Durata gioco',
-               '~Durata reale (1x speed)', 'Note']
-    rows = [
-        ['Standard', '36.000', '12 ore', '20 minuti',
-         'Mezza giornata di operatività'],
-        ['High', '54.000', '18 ore', '30 minuti',
-         'Estensione del 50% rispetto a Standard'],
-    ]
-    story.append(dt(headers, rows, col_ratios=[0.18, 0.18, 0.18, 0.22, 0.24]))
-    story.append(cap('Tabella 6.1 — Capacità della batteria per tier. '
-                      'A velocità 3x (comune in late game), 12 ore gioco = ~7 minuti reali.'))
+    story.append(body(
+        "In termini numerici, le suit hanno valori di <code>maxEnergyTicks</code> "
+        "configurati via XML nel <code>MechExosuitExt</code> (vedi Sezione 8.4 "
+        "per i valori concreti di ciascuna suit). Il subcore High riduce "
+        "la durata effettiva del ~25% rispetto al Standard, perché il "
+        "processore più potente assorbe più energia per tick. Questo "
+        "crea il trade-off: il High dà +4 skill e +75 HP, ma la mech-exosuit "
+        "va ricaricata più spesso."
+    ))
     
     story.append(body(
         "Quando l'energia arriva a 0, il mech va in <b>low power mode</b>: "
@@ -118,27 +117,29 @@ def build_section_06(story, ctx):
     
     story.append(P('<b>6.4.1 — Costo in bandwidth</b>', ctx['styles']['H3']))
     story.append(body(
-        "Il costo in bandwidth è <b>configurabile per suit</b> via XML "
-        "(modExtension <code>bandwidthCost</code>). Per la Patriot, il "
-        "valore di default è <b>3 bandwidth</b> — equivalente a un "
-        "mini-mech vanilla come il Lifter, nonostante il mech-exosuit sia "
-        "molto più potente. Questo è bilanciato dal fatto che il mech-exosuit "
-        "ha costi aggiuntivi (batteria, subcore fragile) che i mech vanilla "
-        "non hanno."
+        "Il costo in bandwidth dipende da <b>due fattori</b>: la suit "
+        "(definisce il valore base via XML in <code>MechExosuitExt</code>) "
+        "e il tier del subcore installato (il High aggiunge +1 al valore "
+        "base). Il High costa più bandwidth perché il mechanitor deve "
+        "dedicare più \"attenzione\" per gestire un processore più "
+        "complesso."
     ))
     
-    headers = ['Tipo mech', 'Bandwidth cost', 'Note']
+    headers = ['Tipo mech', 'BW (Std subcore)', 'BW (High subcore)', 'Note']
     rows = [
-        ['Vanilla Lifter', '1', 'Mini-mech, solo hauling'],
-        ['Vanilla Constructoid', '2', 'Mini-mech, solo construction'],
-        ['Vanilla Pikeman', '3', 'Combat mech'],
-        ['Vanilla Centipede', '5', 'Heavy combat mech'],
-        ['ModName Patriot Mech-Exosuit', '3', 'Configurabile via XML; default uguale a Pikeman'],
-        ['ModName [altra suit]', '2-5', 'Da definire per suit; vedi Sezione 8'],
+        ['Vanilla Lifter', '1', '—', 'Mini-mech, solo hauling'],
+        ['Vanilla Constructoid', '2', '—', 'Mini-mech, solo construction'],
+        ['Vanilla Pikeman', '3', '—', 'Combat mech'],
+        ['Vanilla Centipede', '5', '—', 'Heavy combat mech'],
+        ['ModName Patriot', '3', '4', 'Configurabile via XML; vedi Sezione 8'],
+        ['ModName AMP', '3', '4', 'Equivalente a Pikeman'],
+        ['ModName Mobile Dragon', '3', '4', 'Scout veloce, compensa con armor bassa'],
+        ['ModName Pirate Brawnson', '4', '5', 'Tank puro melee'],
+        ['ModName Powered Work Loader', '2', '3', 'Utility, equivalente a Constructoid'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.40, 0.20, 0.40]))
-    story.append(cap('Tabella 6.3 — Costo in bandwidth rispetto ai mech vanilla. '
-                      'Il mech-exosuit è bilanciato per essere un\'alternativa ai combat mech vanilla.'))
+    story.append(dt(headers, rows, col_ratios=[0.30, 0.16, 0.16, 0.38]))
+    story.append(cap('Tabella 6.3 — Costo in bandwidth per suit × tier subcore. '
+                      'Il subcore High aggiunge +1 a tutte le suit (più skill, più potenza, più attenzione del mechanitor).'))
     
     # ── 6.5 Control group integration ──
     story.append(P('<b>6.5 — Integrazione con control group</b>',

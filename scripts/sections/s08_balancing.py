@@ -33,12 +33,15 @@ def build_section_08(story, ctx):
         'Le stat meccaniche delle suit (armor, MoveSpeed, HP, slot di equipaggiamento) '
         'sono <b>identiche alle suit originali</b> — non vengono modificate da '
         '[Mod Name]. Questo garantisce che il flavor e il bilanciamento interno '
-        'di ciascuna suit siano preservati. Le uniche due variabili che '
-        '[Mod Name] calibra per bilanciare il mech-exosuit risultante sono: '
-        '<b>(1) la durata della batteria</b> (Tabella 8.4) e <b>(2) il costo in '
-        'bandwidth</b> (Tabella 8.1 e 8.9). Tutti gli altri numeri — armor, '
-        'MoveSpeed, HP, costi crafting, skill base — riflettono i valori delle '
-        'suit originali dei rispettivi mod di origine.',
+        'di ciascuna suit siano preservati. Le uniche tre variabili che '
+        '[Mod Name] calibra sono: <b>(1) la durata della batteria</b> (Tabella 8.4), '
+        '<b>(2) il costo in bandwidth</b> (Tabella 8.1 e 8.9), e <b>(3) il bonus skill</b> '
+        'del subcore (Standard: +0, High: +4). '
+        '<b>Il subcore High è uno trade-off</b>: fornisce più skill (+4) e più HP '
+        '(175 vs 100), ma consuma più batteria (−25% durata) e più bandwidth '
+        '(+1 rispetto a Standard). Questo riflette il fatto che un processore più '
+        'potente è più abile ma anche più esigente — assorbe più energia e '
+        'richiede più "attenzione" dal mechanitor.',
         color=ctx['colors']['accent']
     ))
     
@@ -51,22 +54,24 @@ def build_section_08(story, ctx):
         "bilanciamento."
     ))
     
-    headers = ['Suit', 'Mod di origine', 'Ruolo', 'Bandwidth', 'Tier']
+    headers = ['Suit', 'Mod di origine', 'Ruolo',
+               'BW (Std)', 'BW (High)', 'Tier']
     rows = [
         ['EXO-45 Patriot', 'Aqued.Exosuits (Helldivers)',
-         'Combat pesante (ranged)', '3', 'Medio'],
+         'Combat pesante (ranged)', '3', '4', 'Medio'],
         ['AMP Suit', 'Aoba.Exosuit.AMP',
-         'Combat bilanciato (ranged + melee)', '3', 'Medio'],
+         'Combat bilanciato (ranged + melee)', '3', '4', 'Medio'],
         ['PV-8 Zyklop (Mobile Dragon)', 'Aoba.DeadManSwitch.MobileDragoon',
-         'Combat veloce (scout)', '3', 'Avanzato'],
+         'Combat veloce (scout)', '3', '4', 'Avanzato'],
         ['PV-8R0N Brawnson (Pirate)', 'amiti.pirateexosuit',
-         'Combat pesante alternativo (tank)', '4', 'Alto'],
+         'Combat pesante alternativo (tank)', '4', '5', 'Alto'],
         ['P-5000 Powered Work Loader', 'Aoba.Exosuit.PowerLoader',
-         'Utility (hauling + construction)', '2', 'Base'],
+         'Utility (hauling + construction)', '2', '3', 'Base'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.22, 0.28, 0.30, 0.10, 0.10]))
-    story.append(cap('Tabella 8.1 — Panoramica delle 5 exosuit supportate come casi pilota. '
-                      'Tutte richiedono Exosuit Framework come hard dependency.'))
+    story.append(dt(headers, rows, col_ratios=[0.20, 0.24, 0.26, 0.10, 0.10, 0.10]))
+    story.append(cap('Tabella 8.1 — Panoramica delle 5 exosuit supportate. '
+                      'Il bandwidth cost dipende dal tier del subcore installato: '
+                      'High consuma +1 bandwidth rispetto a Standard ma fornisce +4 a tutte le skill.'))
     
     # ── 8.2 Confronto stat meccaniche ──
     story.append(P('<b>8.2 — Confronto stat meccaniche (tutte le suit)</b>',
@@ -120,12 +125,12 @@ def build_section_08(story, ctx):
     
     story.append(body(
         "La capacità della batteria è <b>l'unico bilanciamento attivo</b> "
-        "insieme al bandwidth cost. Le stat meccaniche delle suit (armor, "
-        "MoveSpeed, HP) sono <b>identiche alle suit originali</b> — non "
-        "vengono modificate. La durata della batteria invece è calibrata "
-        "in base a: <b>consumo energetico stimato</b> (MoveSpeed × massa "
-        "× sistemi attivi) e <b>tier del subcore</b> (efficienza "
-        "computazionale)."
+        "insieme al bandwidth cost e al bonus skill. Le stat meccaniche "
+        "delle suit (armor, MoveSpeed, HP) sono <b>identiche alle suit "
+        "originali</b> — non vengono modificate. La durata della batteria "
+        "è calibrata in base a due fattori: <b>consumo energetico della "
+        "suit</b> (MoveSpeed × massa × sistemi attivi) e <b>tier del "
+        "subcore</b> (il subcore High assorbe più energia del Standard)."
     ))
     
     story.append(body(
@@ -133,33 +138,37 @@ def build_section_08(story, ctx):
         "hanno il consumo più alto; le suit utility (lente, no combat "
         "systems) hanno il consumo più basso. Le suit scout veloci "
         "consumano molto per via dei motori ad alta potenza necessari "
-        "per MoveSpeed elevata, anche se l'armor è bassa."
+        "per MoveSpeed elevata, anche se l'armor è bassa. <b>Il subcore "
+        "High riduce la durata della batteria del ~25%</b> rispetto al "
+        "Standard — il processore più potente assorbe più energia."
     ))
     
     headers = ['Suit', 'Standard (h gioco)', 'High (h gioco)',
                'Consumo power', 'Razionale consumo']
     rows = [
-        ['Powered Work Loader', '18', '27', '300 W',
+        ['Powered Work Loader', '18', '14', '300 W',
          'Basso: armor 0.80, MoveSpeed 2.8, niente combat systems'],
-        ['Mobile Dragon (PV-8)', '10', '15', '400 W',
+        ['Mobile Dragon (PV-8)', '10', '8', '400 W',
          'Medio-basso: armor bassa MA MoveSpeed 6.2 (motore potente)'],
-        ['Patriot', '12', '18', '350 W',
+        ['Patriot', '12', '9', '350 W',
          'Medio: armor alta 1.70, sistemi weapon pesanti (minigun/rocket)'],
-        ['AMP', '12', '18', '350 W',
+        ['AMP', '12', '9', '350 W',
          'Medio: armor media 1.50, 4 slot weapon (ranged + melee)'],
-        ['Pirate Brawnson', '9', '14', '400 W',
+        ['Pirate Brawnson', '9', '7', '400 W',
          'Alto: armor 1.60, tank puro con servomotori pesanti per melee'],
     ]
     story.append(dt(headers, rows, col_ratios=[0.22, 0.12, 0.12, 0.14, 0.40]))
     story.append(cap('Tabella 8.4 — Durata batteria per combinazione suit × tier. '
+                      'Il subcore High riduce la durata del ~25% (consumo energetico maggiore). '
                       'Il Powered Work Loader ha la durata maggiore (utility); '
-                      'il Pirate Brawnson la minore (tank puro con consumo elevato).'))
+                      'il Pirate Brawnson + High subcore la minore (7h).'))
     
     story.append(body(
-        "Il subcore High estende la durata del <b>50%</b> rispetto al "
-        "Standard per tutte le suit. Questo riflette il fatto che il "
-        "subcore High gestisce meglio il power management (lore: "
-        "algoritmi di ottimizzazione energetica più avanzati)."
+        "Il <b>trade-off del subcore High</b> è quindi triplo: fornisce "
+        "+4 a tutte le skill e +75 HP (175 vs 100), ma costa 1 bandwidth "
+        "in più e riduce la durata della batteria del 25%. Il giocatore "
+        "deve decidere se vale la pena per ogni singolo mech-exosuit "
+        "che fielda — non è una scelta automatica."
     ))
     
     # ── 8.5 Crafting costs ──
@@ -272,42 +281,44 @@ def build_section_08(story, ctx):
                    ctx['styles']['H2']))
     
     story.append(body(
-        "Il costo in bandwidth è il secondo strumento di bilanciamento "
-        "insieme alla batteria. Le 5 suit sono posizionate rispetto ai "
-        "mech vanilla in modo da essere alternative valide senza essere "
-        "eccessivamente potenti. Confronto diretto:"
+        "Il costo in bandwidth dipende da <b>due fattori</b>: la suit "
+        "(che definisce il valore base) e il tier del subcore installato "
+        "(High aggiunge +1 al valore base). Le 5 suit sono posizionate "
+        "rispetto ai mech vanilla in modo da essere alternative valide "
+        "senza essere eccessivamente potenti. Confronto diretto:"
     ))
     
-    headers = ['Tipo mech', 'Bandwidth', 'Combat power', 'Note']
+    headers = ['Tipo mech', 'BW (Std subcore)', 'BW (High subcore)',
+               'Combat power', 'Note']
     rows = [
-        ['Vanilla Lifter', '1', 'Basso', 'Mini-mech utility'],
-        ['Vanilla Constructoid', '2', 'Basso', 'Mini-mech construction'],
-        ['Vanilla Pikeman', '3', 'Medio', 'Combat mech ranged'],
-        ['Vanilla Centipede', '5', 'Alto', 'Heavy combat mech'],
-        ['ModName Powered Work Loader', '2', 'Basso (utility)',
+        ['Vanilla Lifter', '1', '—', 'Basso', 'Mini-mech utility'],
+        ['Vanilla Constructoid', '2', '—', 'Basso', 'Mini-mech construction'],
+        ['Vanilla Pikeman', '3', '—', 'Medio', 'Combat mech ranged'],
+        ['Vanilla Centipede', '5', '—', 'Alto', 'Heavy combat mech'],
+        ['ModName Powered Work Loader', '2', '3', 'Basso (utility)',
          'Equivalente a Constructoid; supporta anche hauling e mining'],
-        ['ModName Patriot', '3', 'Medio-alto',
+        ['ModName Patriot', '3', '4', 'Medio-alto',
          'Equivalente a Pikeman ma con loadout config (minigun/rocket)'],
-        ['ModName AMP', '3', 'Medio-alto',
+        ['ModName AMP', '3', '4', 'Medio-alto',
          'Equivalente a Pikeman; versatile ranged + melee'],
-        ['ModName Mobile Dragon', '3', 'Medio-alto (scout)',
+        ['ModName Mobile Dragon', '3', '4', 'Medio-alto (scout)',
          'Equivalente a Pikeman; più veloce ma più fragile'],
-        ['ModName Pirate Brawnson', '4', 'Alto (tank)',
-         'Più costoso del Pikeman, meno del Centipede; tank melee puro'],
+        ['ModName Pirate Brawnson', '4', '5', 'Alto (tank)',
+         'Equivalente a Centipede con subcore High; tank melee puro'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.28, 0.12, 0.22, 0.38]))
+    story.append(dt(headers, rows, col_ratios=[0.26, 0.13, 0.13, 0.20, 0.28]))
     story.append(cap('Tabella 8.9 — Confronto bandwidth con mech vanilla. '
-                      'Le suit da combat a 3 bandwidth sono alternative valide al Pikeman; '
-                      'il Brawnson a 4 è un\'alternativa più economica al Centipede per il ruolo tank.'))
+                      'Il subcore High aggiunge +1 a tutti i valori (più skill, più potenza, più attenzione del mechanitor).'))
     
     story.append(body(
-        "Il Pirate Brawnson è l'unica suit con bandwidth 4 — riflette "
-        "il fatto che è un tank puro con armor Sharp 1.60 (secondo solo "
-        "al Patriot) e HP helmet dedicato. È bilanciato per essere più "
-        "efficace del Pikeman in sopravvivenza ma meno del Centipede "
-        "(che ha anche ranged heavy). La Mobile Dragon è a 3 e non 4 "
-        "perché la sua velocità (6.2 vs 3.5 Patriot) è bilanciata "
-        "dall'armor molto più bassa (1.20 sharp vs 1.70 Patriot)."
+        "Il Pirate Brawnson è l'unica suit che parte da bandwidth 4 — "
+        "riflette il fatto che è un tank puro con armor Sharp 1.60 "
+        "(secondo solo al Patriot) e HP helmet dedicato. Con subcore "
+        "High arriva a 5, equivalente al Centipede vanilla — ma il "
+        "Centipede ha anche ranged heavy, il Brawnson è melee-only. "
+        "La Mobile Dragon è a 3 (non 4) perché la sua velocità "
+        "(6.2 vs 3.5 Patriot) è bilanciata dall'armor molto più bassa "
+        "(1.20 sharp vs 1.70 Patriot)."
     ))
     
     # ── 8.10 Suit-specific notes ──
@@ -373,29 +384,31 @@ def build_section_08(story, ctx):
     story.append(body(
         "Le 5 suit coprono l'intero spettro di ruoli senza sovrapposizioni "
         "eccessive. Il giocatore che vuole fieldare tutti e 5 i tipi "
-        "contemporaneamente consuma 17 bandwidth (3+3+4+5+2), che "
-        "rappresenta un impegno significativo ma realistico per late "
-        "game con mechanitor avanzato."
+        "contemporaneamente consuma <b>15 bandwidth con subcore Standard</b> "
+        "(3+3+3+4+2) oppure <b>20 bandwidth con subcore High</b> "
+        "(4+4+4+5+3) — il doppio costo del High va valutato in base alle "
+        "+4 skill e ai +75 HP extra per subcore."
     ))
     
-    headers = ['Combinazione', 'Bandwidth tot.', 'Ruolo tattico']
+    headers = ['Combinazione (tutti Std subcore)', 'BW tot.',
+               'Combinazione (tutti High subcore)', 'BW tot.']
     rows = [
         ['Powered Work Loader da solo', '2',
-         'Utility puro — hauling/mining/construction senza combat'],
+         'Powered Work Loader (High)', '3'],
         ['Patriot + Powered Work Loader', '5',
-         'Combo standard — combat + utility, come un Pikeman + Constructoid'],
+         'Patriot (High) + Powered Work Loader (High)', '7'],
         ['2× Patriot + Powered Work Loader', '8',
-         'Late game medio — combat + utility'],
+         '2× Patriot (High) + Powered Work Loader (High)', '11'],
         ['Patriot + AMP + Mobile Dragon', '9',
-         'Combat team completo — ranged + versatile + scout'],
+         'Patriot + AMP + Mobile Dragon (tutti High)', '12'],
         ['Pirate Brawnson + Patriot + Powered Work Loader', '9',
-         'Late game bilanciato — tank + ranged + utility'],
+         'Brawnson + Patriot + PWL (tutti High)', '12'],
         ['Tutte e 5 le suit', '15',
-         'Late game massimo — richiede mechanitor High + bandwidth boost'],
+         'Tutte e 5 le suit (tutti High subcore)', '20'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.42, 0.16, 0.42]))
-    story.append(cap('Tabella 8.10 — Combinazioni tattiche e bandwidth totale richiesto. '
-                      'Tutte e 5 le suit consumano 15 bandwidth (era 17 prima del ribilanciamento).'))
+    story.append(dt(headers, rows, col_ratios=[0.34, 0.10, 0.34, 0.10]))
+    story.append(cap('Tabella 8.10 — Combinazioni tattiche e bandwidth totale. '
+                      'Con tutti High subcore, il totale saliva da 15 a 20 bandwidth (richiede mechanitor molto avanzato).'))
     
     story.append(cb(
         'Bilanciamento iterativo',
