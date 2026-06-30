@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Flusso di Danno</title>
+<style>
+
+:root {
+  --bg: #f5f5f4;
+  --card: #ebeae8;
+  --header-fill: #4e4732;
+  --cover-block: #746c56;
+  --border: #c5bfac;
+  --icon: #a48e4b;
+  --accent: #92761f;
+  --accent-2: #3aa0c2;
+  --text-primary: #151513;
+  --text-muted: #7e7c74;
+  --node-fill: #faf7f0;
+  --node-fill-accent: #fdf3e0;
+  --node-fill-danger: #fae8e6;
+  --node-fill-ok: #e8f4ec;
+  --node-fill-mech: #e8eef4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  font-family: 'Noto Sans SC', 'Inter', sans-serif;
+  color: var(--text-primary);
+  padding: 30px;
+}
+.canvas {
+  position: relative;
+  background: var(--bg);
+  padding: 0;
+}
+
+.canvas { width: 1400px; height: 850px; padding: 30px; }
+.title-bar { font-size: 24px; font-weight: 700; color: var(--header-fill); margin-bottom: 6px; border-bottom: 2px solid var(--accent); padding-bottom: 6px; }
+.subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 30px; }
+
+.phase {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--header-fill);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  background: var(--card-bg);
+  border-left: 3px solid var(--accent);
+}
+
+.node {
+  position: absolute;
+  width: 200px;
+  background: var(--node-fill);
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.node .lbl { font-weight: 700; color: var(--header-fill); font-size: 12px; margin-bottom: 4px; }
+.node .det { color: var(--text-muted); font-size: 10px; }
+.node.start { background: var(--node-fill-mech); border-color: var(--accent-2); }
+.node.danger { background: var(--node-fill-danger); border-color: var(--semantic-error); }
+.node.danger .lbl { color: var(--semantic-error); }
+.node.ok { background: var(--node-fill-ok); border-color: var(--semantic-success); }
+.node.ok .lbl { color: var(--semantic-success); }
+.node.decision {
+  width: 220px;
+  background: var(--node-fill-accent);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+}
+.node.decision .lbl { color: var(--accent); }
+.node.subcore {
+  background: var(--node-fill-accent);
+  border-color: var(--accent);
+  border-left-width: 4px;
+}
+
+svg.connectors { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.arrow-line { stroke: var(--cover-block); stroke-width: 1.5; fill: none; marker-end: url(#arr2); }
+.arrow-line.yes { stroke: var(--semantic-success); }
+.arrow-line.no { stroke: var(--semantic-error); }
+.edge-label { font-size: 10px; font-weight: 700; fill: var(--header-fill); }
+
+/* positions */
+.n1 { left: 60px; top: 100px; }
+.n2 { left: 320px; top: 100px; }
+.n3 { left: 580px; top: 100px; }
+.n4 { left: 840px; top: 100px; }
+.n5 { left: 1100px; top: 100px; }
+.d1 { left: 540px; top: 280px; }
+.n6a { left: 250px; top: 460px; }
+.n6b { left: 800px; top: 460px; }
+.d2 { left: 800px; top: 620px; }
+.n7a { left: 540px; top: 760px; }
+.n7b { left: 1060px; top: 760px; }
+
+.p1 { left: 60px; top: 60px; }
+.p2 { left: 60px; top: 240px; }
+.p3 { left: 60px; top: 440px; }
+.p4 { left: 60px; top: 600px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="title-bar">Flusso di Danno — Penetrazione al Subcore</div>
+  <div class="subtitle">Modello vanilla Exosuit Framework con subcore come body part interna</div>
+
+  <div class="phase p1">Fase 1 — Hit & Armor</div>
+  <div class="phase p2">Fase 2 — Body Part Selection</div>
+  <div class="phase p3">Fase 3 — Subcore Hit?</div>
+  <div class="phase p4">Fase 4 — Esito</div>
+
+  <div class="node start n1">
+    <div class="lbl">Colpo ricevuto</div>
+    <div class="det">DamageInfo<br>(amount, Def, angle)</div>
+  </div>
+  <div class="node n2">
+    <div class="lbl">Armor Check</div>
+    <div class="det">ArmorRating_Sharp/Blunt<br>vanilla penetration roll</div>
+  </div>
+  <div class="node n3">
+    <div class="lbl">Damage Taken</div>
+    <div class="det">Mech HP -= amount<br>(health pool principale)</div>
+  </div>
+  <div class="node n4">
+    <div class="lbl">Body Part Roll</div>
+    <div class="det">BodyDef custom<br>coverage ponderata</div>
+  </div>
+  <div class="node subcore n5">
+    <div class="lbl">Subcore body part</div>
+    <div class="det">coverage = 0.10<br>HP separato: 100/175</div>
+  </div>
+
+  <div class="node decision d1">
+    <div class="lbl">Subcore colpito?</div>
+    <div class="det">roll su coverage 10%</div>
+  </div>
+
+  <div class="node ok n6a">
+    <div class="lbl">NO — Solo mech</div>
+    <div class="det">Subcore HP invariato<br>nessun danno aggiuntivo</div>
+  </div>
+
+  <div class="node danger n6b">
+    <div class="lbl">SÌ — Subcore danneggiato</div>
+    <div class="det">Subcore.HP -= amount<br>(stesso amount del colpo)</div>
+  </div>
+
+  <div class="node decision d2">
+    <div class="lbl">Subcore HP &lt;= 0?</div>
+  </div>
+
+  <div class="node danger n7a">
+    <div class="lbl">SÌ — Subcore Destroyed</div>
+    <div class="det">Spawn "Destroyed [Std/High] Subcore"<br>Mech va in "braindead" state<br>(downed, non più riparabile)</div>
+  </div>
+
+  <div class="node ok n7b">
+    <div class="lbl">NO — Subcore sopravvive</div>
+    <div class="det">Mech continua a operare<br>HP subcore ridotto permane<br>fino a riparazione in bay</div>
+  </div>
+
+  <svg class="connectors" viewBox="0 0 1400 850" preserveAspectRatio="none">
+    <defs>
+      <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="var(--cover-block)"/>
+      </marker>
+    </defs>
+    <path class="arrow-line" d="M 260,140 L 320,140" />
+    <path class="arrow-line" d="M 520,140 L 580,140" />
+    <path class="arrow-line" d="M 780,140 L 840,140" />
+    <path class="arrow-line" d="M 1040,140 L 1100,140" />
+    <path class="arrow-line" d="M 640,170 L 640,280" />
+    <path class="arrow-line no" d="M 540,330 L 350,460" />
+    <text x="380" y="400" class="edge-label">NO (90%)</text>
+    <path class="arrow-line yes" d="M 740,330 L 900,460" />
+    <text x="830" y="400" class="edge-label">SÌ (10%)</text>
+    <path class="arrow-line" d="M 900,510 L 900,620" />
+    <path class="arrow-line no" d="M 800,670 L 640,760" />
+    <text x="650" y="720" class="edge-label">SÌ</text>
+    <path class="arrow-line yes" d="M 1020,670 L 1160,760" />
+    <text x="1080" y="720" class="edge-label">NO</text>
+  </svg>
+</div>
+</body>
+</html>

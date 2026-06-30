@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Flusso di Morte e Recupero</title>
+<style>
+
+:root {
+  --bg: #f5f5f4;
+  --card: #ebeae8;
+  --header-fill: #4e4732;
+  --cover-block: #746c56;
+  --border: #c5bfac;
+  --icon: #a48e4b;
+  --accent: #92761f;
+  --accent-2: #3aa0c2;
+  --text-primary: #151513;
+  --text-muted: #7e7c74;
+  --node-fill: #faf7f0;
+  --node-fill-accent: #fdf3e0;
+  --node-fill-danger: #fae8e6;
+  --node-fill-ok: #e8f4ec;
+  --node-fill-mech: #e8eef4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  font-family: 'Noto Sans SC', 'Inter', sans-serif;
+  color: var(--text-primary);
+  padding: 30px;
+}
+.canvas {
+  position: relative;
+  background: var(--bg);
+  padding: 0;
+}
+
+.canvas { width: 1400px; height: 800px; padding: 30px; }
+.title-bar { font-size: 24px; font-weight: 700; color: var(--header-fill); margin-bottom: 6px; border-bottom: 2px solid var(--accent); padding-bottom: 6px; }
+.subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 30px; }
+
+.phase {
+  position: absolute;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--header-fill);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 4px 10px;
+  background: var(--card-bg);
+  border-left: 3px solid var(--accent);
+}
+
+.node {
+  position: absolute;
+  width: 200px;
+  background: var(--node-fill);
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.node .lbl { font-weight: 700; color: var(--header-fill); font-size: 12px; margin-bottom: 4px; }
+.node .det { color: var(--text-muted); font-size: 10px; }
+.node.start { background: var(--node-fill-mech); border-color: var(--accent-2); }
+.node.danger { background: var(--node-fill-danger); border-color: var(--semantic-error); }
+.node.ok { background: var(--node-fill-ok); border-color: var(--semantic-success); }
+.node.special {
+  background: var(--node-fill-accent);
+  border: 2px dashed var(--accent);
+}
+.node.special .lbl { color: var(--accent); }
+
+svg.connectors { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.arrow-line { stroke: var(--cover-block); stroke-width: 1.5; fill: none; marker-end: url(#arr3); }
+.arrow-line.danger { stroke: var(--semantic-error); }
+.arrow-line.ok { stroke: var(--semantic-success); }
+.edge-label { font-size: 10px; font-weight: 700; fill: var(--header-fill); }
+
+.n1 { left: 60px; top: 100px; }
+.d1 { left: 320px; top: 100px; width: 240px; background: var(--node-fill-accent); border: 2px solid var(--accent); border-radius: 8px; }
+.n2a { left: 640px; top: 100px; }
+.n2b { left: 900px; top: 100px; }
+.n3 { left: 1140px; top: 100px; width: 220px; }
+
+.n4 { left: 1140px; top: 280px; width: 220px; }
+.n5 { left: 1140px; top: 460px; width: 220px; }
+
+.d2 { left: 700px; top: 460px; width: 240px; background: var(--node-fill-accent); border: 2px solid var(--accent); border-radius: 8px; }
+.n6a { left: 380px; top: 460px; }
+.n6b { left: 60px; top: 460px; }
+
+.n7 { left: 60px; top: 640px; }
+
+.p1 { left: 60px; top: 60px; }
+.p2 { left: 60px; top: 260px; }
+.p3 { left: 60px; top: 440px; }
+.p4 { left: 60px; top: 620px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="title-bar">Flusso di Morte → Relitto → Recupero</div>
+  <div class="subtitle">Sistema deterministico basato su HP residui del subcore al momento della morte</div>
+
+  <div class="phase p1">Fase 1 — Morte del mech</div>
+  <div class="phase p2">Fase 2 — Drop del relitto</div>
+  <div class="phase p3">Fase 3 — Smontaggio del relitto</div>
+  <div class="phase p4">Fase 4 — Esito finale</div>
+
+  <div class="node start n1">
+    <div class="lbl">Mech HP = 0</div>
+    <div class="det">Distruzione in combattimento</div>
+  </div>
+
+  <div class="node d1">
+    <div class="lbl">Subcore era già morto?</div>
+    <div class="det">(HP subcore = 0 al momento della morte mech)</div>
+  </div>
+
+  <div class="node danger n2a">
+    <div class="lbl">SÌ — Braindead</div>
+    <div class="det">Spawn "Destroyed [Std/High] Subcore"<br>Relitto = solo materiali</div>
+  </div>
+
+  <div class="node ok n2b">
+    <div class="lbl">NO — Subcore vivo</div>
+    <div class="det">Subcore entra in relitto<br>con HP residui</div>
+  </div>
+
+  <div class="node special n3">
+    <div class="lbl">Relitto Sigillato di [Suit]</div>
+    <div class="det">ThingDef custom<br>destroyOnDrop: false<br>richiede smontaggio</div>
+  </div>
+
+  <div class="node n4">
+    <div class="lbl">Pawn esegue JobDriver_DismantleRelic</div>
+    <div class="det">200 ticks di lavoro<br>(machining table o bay)</div>
+  </div>
+
+  <div class="node n5">
+    <div class="lbl">Roll deterministico</div>
+    <div class="det">HP_recuperati =<br>HP_residui_morte × 0.70<br>(min 10%, max 100%)</div>
+  </div>
+
+  <div class="node d2">
+    <div class="lbl">HP residui &gt; soglia?</div>
+    <div class="det">soglia = 30% del max HP</div>
+  </div>
+
+  <div class="node ok n6a">
+    <div class="lbl">SÌ — Subcore recuperato</div>
+    <div class="det">Spawn "[Std/High] Subcore"<br>HP = 70% dei residui<br>SubcoreInfo: identità preservata</div>
+  </div>
+
+  <div class="node danger n6b">
+    <div class="lbl">NO — Subcore distrutto</div>
+    <div class="det">Spawn "Destroyed [Std/High] Subcore"<br>+ materiali del relitto</div>
+  </div>
+
+  <div class="node special n7">
+    <div class="lbl">Subcore recuperato riutilizzabile</div>
+    <div class="det">HP ridotti → più fragile al prossimo blow-through<br>Cumula con subcore già danneggiati<br>Reinstallabile in nuova suit</div>
+  </div>
+
+  <svg class="connectors" viewBox="0 0 1400 800" preserveAspectRatio="none">
+    <defs>
+      <marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="var(--cover-block)"/>
+      </marker>
+    </defs>
+    <path class="arrow-line" d="M 260,140 L 320,140" />
+    <path class="arrow-line danger" d="M 560,140 L 640,140" />
+    <text x="580" y="130" class="edge-label">SÌ</text>
+    <path class="arrow-line ok" d="M 560,170 L 900,140" />
+    <text x="700" y="130" class="edge-label">NO</text>
+    <path class="arrow-line danger" d="M 840,140 L 1140,200" />
+    <path class="arrow-line ok" d="M 1100,140 L 1140,140" />
+    <path class="arrow-line" d="M 1240,200 L 1240,280" />
+    <path class="arrow-line" d="M 1240,340 L 1240,460" />
+    <path class="arrow-line" d="M 1140,490 L 940,490" />
+    <path class="arrow-line ok" d="M 700,490 L 580,490" />
+    <text x="600" y="480" class="edge-label">SÌ</text>
+    <path class="arrow-line danger" d="M 700,520 L 260,490" />
+    <text x="400" y="510" class="edge-label">NO</text>
+    <path class="arrow-line ok" d="M 380,520 L 160,640" />
+  </svg>
+</div>
+</body>
+</html>

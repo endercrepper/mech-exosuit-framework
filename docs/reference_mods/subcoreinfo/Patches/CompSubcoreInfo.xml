@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>/Defs/ThingDef[defName="SubcoreRegular" or defName="SubcoreHigh"]/comps</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="SubcoreRegular" or defName="SubcoreHigh"]</xpath>
+      <value>
+        <comps>
+          <li>
+            <compClass>SubcoreInfo.Comps.CompSubcoreInfo</compClass>
+          </li>
+        </comps>
+      </value>
+    </nomatch>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="SubcoreRegular" or defName="SubcoreHigh"]/comps</xpath>
+      <value>
+        <li>
+          <compClass>SubcoreInfo.Comps.CompSubcoreInfo</compClass>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+
+</Patch>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>[Mod Name] — Design Document</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+@page { size: 794px 1123px; margin: 0; }
+
+:root {
+  /* RimWorld Visual palette — generated via palette.cascade */
+  --c-bg: #1c1916;       /* dark stone (darker than page-bg for cover) */
+  --c-bg-mid: #2b2723;   /* mid stone */
+  --c-accent: #c89669;   /* copper/rame (lightened for dark bg) */
+  --c-accent-dim: #92761f;
+  --c-text: #e8dcc8;     /* cream */
+  --c-muted: #8d8170;    /* dimmed cream */
+  --c-divider: #4a423a;
+  --c-danger: #c87a6a;
+  --c-ok: #8fae7c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 794px;
+  height: 1123px;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Inter', 'Noto Sans SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media screen {
+  html { height: auto; display: flex; justify-content: center; min-height: 100vh; background: var(--c-bg); }
+  body { transform-origin: top center; scale: min(1, calc(100vw / 794), calc(100vh / 1123)); margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.4); }
+}
+
+.cover {
+  width: 794px;
+  height: 1123px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Layer 1: subtle grid background (2% opacity accent) */
+.layer-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  background-image:
+    linear-gradient(to right, rgba(200, 150, 105, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(200, 150, 105, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Layer 2: vertical anchor line */
+.vline {
+  position: absolute;
+  left: 47px;
+  top: 95px;
+  bottom: 175px;
+  width: 3px;
+  background: var(--c-accent);
+  z-index: 2;
+}
+
+/* Layer 2: bottom horizontal divider */
+.hline-bottom {
+  position: absolute;
+  left: 95px;
+  right: 95px;
+  bottom: 145px;
+  height: 1px;
+  background: var(--c-divider);
+  z-index: 2;
+}
+
+/* Layer 3: content */
+.content {
+  position: absolute;
+  left: 95px;
+  right: 95px;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+}
+
+.kicker {
+  position: absolute;
+  top: 145px;
+  font-size: 11pt;
+  color: var(--c-accent);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.label {
+  position: absolute;
+  top: 175px;
+  font-size: 9pt;
+  color: var(--c-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.title {
+  position: absolute;
+  top: 230px;
+  font-family: 'Playfair Display', 'Noto Sans SC', serif;
+  font-size: 42pt;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--c-text);
+  max-width: 580px;
+  letter-spacing: -1px;
+}
+
+.title-mod {
+  position: absolute;
+  top: 365px;
+  font-family: 'Playfair Display', 'Noto Sans SC', serif;
+  font-size: 22pt;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--c-accent);
+  max-width: 580px;
+}
+
+.subtitle {
+  position: absolute;
+  top: 425px;
+  font-size: 13pt;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--c-muted);
+  max-width: 540px;
+  letter-spacing: 0.5px;
+}
+
+/* Feature block */
+.feature-band {
+  position: absolute;
+  top: 560px;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.feature {
+  background: rgba(200, 150, 105, 0.04);
+  border-left: 2px solid var(--c-accent);
+  padding: 12px 14px;
+}
+
+.feature-num {
+  font-size: 9pt;
+  color: var(--c-accent);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.feature-title {
+  font-size: 12pt;
+  color: var(--c-text);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.feature-desc {
+  font-size: 9.5pt;
+  color: var(--c-muted);
+  line-height: 1.4;
+}
+
+/* Tags */
+.tag-row {
+  position: absolute;
+  bottom: 220px;
+  left: 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-size: 9pt;
+  color: var(--c-text);
+  padding: 4px 10px;
+  border: 1px solid var(--c-divider);
+  background: rgba(255,255,255,0.02);
+  letter-spacing: 0.5px;
+}
+
+.tag.accent { border-color: var(--c-accent); color: var(--c-accent); }
+
+/* Metadata at bottom */
+.meta-grid {
+  position: absolute;
+  left: 95px;
+  right: 95px;
+  bottom: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 9pt;
+  color: var(--c-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.meta-block .lbl { color: var(--c-accent); margin-bottom: 2px; font-weight: 600; }
+.meta-block .val { color: var(--c-text); font-size: 10pt; font-weight: 400; text-transform: none; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+  <div class="cover">
+    <div class="layer-bg"></div>
+    <div class="vline"></div>
+    <div class="hline-bottom"></div>
+
+    <div class="content">
+      <div class="kicker">Design Document</div>
+      <div class="label">RimWorld 1.6 · Mod Project</div>
+
+      <div class="title">Mech-Exosuit<br>Framework</div>
+      <div class="title-mod">[Mod Name]</div>
+
+      <div class="subtitle">
+        Exosuit meccanoid-guidate con subcore vanilla come pilota interno.
+        Integrazione di Exosuit Framework, vanilla Mechtech e SubcoreInfo.
+      </div>
+
+      <div class="feature-band">
+        <div class="feature">
+          <div class="feature-num">01</div>
+          <div class="feature-title">Subcore Pilota</div>
+          <div class="feature-desc">Standard / High subcore installato fisicamente come body part interna, con HP separati</div>
+        </div>
+        <div class="feature">
+          <div class="feature-num">02</div>
+          <div class="feature-title">Bay Ibrida</div>
+          <div class="feature-desc">4 funzioni: loadout, gestazione, charging, subcore install/extract</div>
+        </div>
+        <div class="feature">
+          <div class="feature-num">03</div>
+          <div class="feature-title">Relitto Sigillato</div>
+          <div class="feature-desc">Drop deterministico basato su HP residui del subcore al momento della morte</div>
+        </div>
+      </div>
+
+      <div class="tag-row">
+        <div class="tag accent">v0.1 Draft</div>
+        <div class="tag">RimWorld 1.6</div>
+        <div class="tag">Exosuit Framework</div>
+        <div class="tag">SubcoreInfo (soft dep)</div>
+        <div class="tag">Combat Extended compat</div>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-block">
+        <div class="lbl">Data</div>
+        <div class="val">30 Giugno 2026</div>
+      </div>
+      <div class="meta-block" style="text-align: center;">
+        <div class="lbl">Stato</div>
+        <div class="val">Pre-coding · Cookbook</div>
+      </div>
+      <div class="meta-block" style="text-align: right;">
+        <div class="lbl">Versione</div>
+        <div class="val">0.1 · Draft</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

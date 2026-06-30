@@ -1,0 +1,32 @@
+# Build artifacts
+*.pyc
+__pycache__/
+*.pdf
+!design_doc/*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Secrets — NEVER commit
+.env
+*.pat
+*.token
+secrets.txt
+
+# Logs
+*.log
+
+# Local dependencies (se mai aggiungiamo package.json)
+node_modules/
+
+# Note: i file di riferimento delle mod in docs/reference_mods/ sono
+# intenzionalmente committati (per riproducibilità del design doc).
+# NON rimuoverli dal .gitignore a meno che non si vogliano escludere
+# per motivi di licenza.

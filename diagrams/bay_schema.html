@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Schema Bay Ibrida</title>
+<style>
+
+:root {
+  --bg: #f5f5f4;
+  --card: #ebeae8;
+  --header-fill: #4e4732;
+  --cover-block: #746c56;
+  --border: #c5bfac;
+  --icon: #a48e4b;
+  --accent: #92761f;
+  --accent-2: #3aa0c2;
+  --text-primary: #151513;
+  --text-muted: #7e7c74;
+  --node-fill: #faf7f0;
+  --node-fill-accent: #fdf3e0;
+  --node-fill-danger: #fae8e6;
+  --node-fill-ok: #e8f4ec;
+  --node-fill-mech: #e8eef4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  font-family: 'Noto Sans SC', 'Inter', sans-serif;
+  color: var(--text-primary);
+  padding: 30px;
+}
+.canvas {
+  position: relative;
+  background: var(--bg);
+  padding: 0;
+}
+
+.canvas { width: 1400px; height: 800px; padding: 30px; }
+.title-bar { font-size: 24px; font-weight: 700; color: var(--header-fill); margin-bottom: 6px; border-bottom: 2px solid var(--accent); padding-bottom: 6px; }
+.subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 30px; }
+
+.bay-container {
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  width: 1200px;
+  height: 580px;
+  background: var(--node-fill);
+  border: 3px solid var(--accent);
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 60px 1fr 1fr;
+  gap: 0;
+}
+.bay-header {
+  grid-column: 1 / 3;
+  background: var(--header-fill);
+  color: white;
+  padding: 18px 24px;
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.bay-header .sub { font-size: 12px; font-weight: 400; opacity: 0.8; }
+
+.function-block {
+  padding: 18px;
+  border: 1px solid var(--border);
+  margin: 12px;
+  border-radius: 4px;
+  background: var(--card-bg);
+  position: relative;
+}
+.function-block .num {
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  background: var(--accent);
+  color: white;
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 3px;
+}
+.function-block .ftitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--header-fill);
+  margin-bottom: 8px;
+  padding-top: 6px;
+}
+.function-block .fdesc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.function-block .fitems {
+  margin-top: 8px;
+  font-size: 10px;
+  color: var(--text-primary);
+  font-family: 'Liberation Mono', monospace;
+  line-height: 1.6;
+}
+.function-block .fitems li {
+  list-style: none;
+  padding-left: 12px;
+  position: relative;
+}
+.function-block .fitems li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+
+.io-band {
+  position: absolute;
+  height: 40px;
+  background: var(--node-fill-mech);
+  border: 1px solid var(--accent-2);
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 11px;
+  color: var(--header-fill);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.io-band.in { left: 60px; top: 710px; }
+.io-band.out { right: 60px; top: 710px; }
+.io-band .lbl { font-weight: 700; color: var(--accent-2); }
+.io-band .items { color: var(--text-muted); }
+
+.note {
+  position: absolute;
+  left: 100px;
+  top: 720px;
+  font-size: 10px;
+  color: var(--text-muted);
+  width: 1200px;
+  text-align: center;
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="title-bar">Schema Bay Ibrida — 4 Funzioni Integrate</div>
+  <div class="subtitle">Building_HybridGestator estende Building_MaintenanceBay (Exosuit Framework)</div>
+
+  <div class="bay-container">
+    <div class="bay-header">
+      <span>Building_HybridGestator</span>
+      <span class="sub">3×3 | Standard Mechtech | 250 steel + 8 components + 1 subcore encoder module</span>
+    </div>
+
+    <div class="function-block">
+      <div class="num">F1</div>
+      <div class="ftitle">Loadout UI</div>
+      <div class="fdesc">Selezione frame + armi (replica ITab_Exosuit di Exosuit Framework)</div>
+      <ul class="fitems">
+        <li>ITab_HybridBay custom</li>
+        <li>Slot supportati: Core, Head, Arms, Mounts</li>
+        <li>Carica moduli da ThingDef</li>
+        <li>Salva configurazione su bay</li>
+      </ul>
+    </div>
+
+    <div class="function-block">
+      <div class="num">F2</div>
+      <div class="ftitle">Gestazione Mech</div>
+      <div class="fdesc">Costruisce il mech-exosuit a partire da subcore + materiali</div>
+      <ul class="fitems">
+        <li>RecipeDef custom per suit</li>
+        <li>Consuma: Subcore + Steel + Components</li>
+        <li>Tempo: 8h gioco (modulabile)</li>
+        <li>Richiede pawn crafter (Craft ≥ 8)</li>
+        <li>Output: Pawn (MechExosuitRace)</li>
+      </ul>
+    </div>
+
+    <div class="function-block">
+      <div class="num">F3</div>
+      <div class="ftitle">Charging Station</div>
+      <div class="fdesc">Ricarica la batteria del mech-exosuit dockato</div>
+      <ul class="fitems">
+        <li>CompMechExosuitBattery ↔ bay</li>
+        <li>Solo mech dockato qui si ricarica</li>
+        <li>Vanilla mech charger: NON compatibile</li>
+        <li>TheDeadmanswitch charger: NON compatibile</li>
+        <li>Consumo: 5 W/tick (da rete elettrica)</li>
+      </ul>
+    </div>
+
+    <div class="function-block">
+      <div class="num">F4</div>
+      <div class="ftitle">Subcore Install/Extract</div>
+      <div class="fdesc">Comandi floating menu per gestione subcore</div>
+      <ul class="fitems">
+        <li>Installa: Subcore → mech vuoto</li>
+        <li>Estrai: Mech dockato → Subcore + Frame item</li>
+        <li>SubcoreInfo.CopySubcoreInfo() su entrambi</li>
+        <li>Disponibile solo quando mech è fermo in bay</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="io-band in">
+    <span class="lbl">INPUT:</span>
+    <span class="items">Subcore (Std/High) · Steel · Components · Plasteel · Chemfuel (per charging) · Pawn crafter</span>
+  </div>
+
+  <div class="io-band out">
+    <span class="lbl">OUTPUT:</span>
+    <span class="items">Mech-Exosuit (Pawn) · Subcore recuperato (su estrazione) · Frame item (su estrazione)</span>
+  </div>
+</div>
+</body>
+</html>

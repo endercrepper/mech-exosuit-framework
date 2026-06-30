@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Defs>
+
+
+<Exosuit.SlotDef>
+   <defName>HelldiversExosuit_Core</defName>
+    <label>EXO-45 Patriot Exosuit</label>
+    <description>A heavily-armored walking exosuit that can be equipped with a minigun or an autocannon, alongside a mounted rocket launcher, for maximum destroying power. The Exosuit is highly resistant and even immune to many hazard, such as fire and toxic environments.
+It can also perform a stomp melee attack to stagger close enemies.</description>
+    <supportedSlots>
+      <li>ArmRight</li>
+      <li>MountLeft</li>
+    </supportedSlots>
+    <uiPriority>0</uiPriority>
+    <isCoreFrame>true</isCoreFrame>
+  </Exosuit.SlotDef>
+
+ <ThingDef ParentName="ModuleItemBase">
+    <defName>Aqued_Exosuit_Core_Module</defName>
+    <label>EXO-45 Patriot Exosuit</label>
+    <description>A heavily-armored walking exosuit that can be equipped with a minigun or an autocannon, alongside a mounted rocket launcher, for maximum destroying power. The Exosuit is highly resistant and even immune to many hazard, such as fire and toxic environments.
+It can also perform a stomp melee attack to stagger close enemies.</description>
+    <descriptionHyperlinks>
+      <ThingDef>Aqued_Exosuit_Apparel_Core</ThingDef>
+    </descriptionHyperlinks>
+    <smeltProducts>
+      <Steel>150</Steel>
+      <Uranium>40</Uranium>
+    </smeltProducts>
+    <butcherProducts>
+      <Steel>175</Steel>
+      <Uranium>40</Uranium>
+      <ComponentIndustrial>8</ComponentIndustrial>
+    </butcherProducts>
+    <costList>
+      <Plasteel>250</Plasteel>
+      <Uranium>50</Uranium>
+      <ComponentIndustrial>20</ComponentIndustrial>
+      <ComponentSpacer>5</ComponentSpacer>
+    </costList>
+    <graphicData>
+      <texPath>Module_C</texPath>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Mass>100</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>Aqued_Exosuit_Apparel_Core</EquipedThingDef>
+        <occupiedSlots>
+          <li>HelldiversExosuit_Core</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+    <recipeMaker>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <researchPrerequisites>
+        <li>WG_HeavyExoskeleton</li>
+      </researchPrerequisites>
+      <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <workAmount>60000</workAmount>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- apparel-->
+  <ThingDef ParentName="ModuleApparelCore">
+    <defName>Aqued_Exosuit_Apparel_Core</defName>
+    <label>EXO-45 Patriot Exosuit</label>
+    <description>A heavily-armored walking exosuit that can be equipped with a minigun or an autocannon, alongside a mounted rocket launcher, for maximum destroying power. The Exosuit is highly resistant and even immune to many hazard, such as fire and toxic environments.
+It can also perform a stomp melee attack to stagger close enemies.</description>
+    <descriptionHyperlinks>
+      <ThingDef>Aqued_Exosuit_Core_Module</ThingDef>
+    </descriptionHyperlinks>
+    <thingClass>Exosuit.Exosuit_Core</thingClass>
+    <tickerType>Normal</tickerType>
+    <graphicData>
+      <texPath>Apparel/HDWalker1_south</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,3)</drawSize>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <uiIconScale>1.25</uiIconScale>
+    <statBases>
+      <Mass>100</Mass>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MoveSpeed>3.5</MoveSpeed>
+      <ArmorRating_Sharp>1.70</ArmorRating_Sharp>
+      <ArmorRating_Blunt>1.80</ArmorRating_Blunt>
+      <ArmorRating_Heat>1.5</ArmorRating_Heat>
+      <Insulation_Cold>60</Insulation_Cold>
+      <Insulation_Heat>40</Insulation_Heat>
+    </statBases>
+    <equippedStatOffsets>
+      <CarryingCapacity>250</CarryingCapacity>
+      <ToxicEnvironmentResistance>1</ToxicEnvironmentResistance>
+      <VacuumResistance MayRequire="Ludeon.RimWorld.Odyssey">0.3</VacuumResistance>
+      <MedicalTendSpeed>-1</MedicalTendSpeed>
+      <MeleeDodgeChance>-1</MeleeDodgeChance>
+      <WorkSpeedGlobal>-0.25</WorkSpeedGlobal>
+    </equippedStatOffsets>
+    <apparel>
+      <abilities>
+        <li>Exosuit_Stomp</li>
+      </abilities>
+      <drawData>
+        <scale>2</scale>
+      </drawData>
+      <wornGraphicPath>Apparel/HDWalker1</wornGraphicPath>
+      <parentTagDef>WGApparelBody</parentTagDef>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <bodyPartGroups>
+        <li>UpperHead</li>
+        <li>FullHead</li>
+        <li>Torso</li>
+        <li>Neck</li>
+        <li>Shoulders</li>
+        <li>Arms</li>
+        <li>Legs</li>
+        <li>Feet</li>
+        <li>Hands</li>
+      </bodyPartGroups>
+      <layers Inherit="false">
+        <li>ExosuitLayer_Core</li>
+      </layers>
+      <renderSkipFlags>
+        <li>Head</li>
+        <li>Body</li>
+      </renderSkipFlags>
+    </apparel>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>Aqued_Exosuit_Core_Module</ItemDef>
+        <occupiedSlots>
+          <li>HelldiversExosuit_Core</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+    <modExtensions>
+      <li MayRequire="oskarpotocki.vanillafactionsexpanded.core" Class="VEF.Apparels.ApparelExtension">
+        <pawnCapacityMinLevels>
+          <li>
+            <capacity>Moving</capacity>
+            <minLevel>0.8</minLevel>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <minLevel>0.8</minLevel>
+          </li>
+        </pawnCapacityMinLevels>
+      </li>
+      <li Class="Exosuit.ExosuitExt">
+        <minArmorBreakdownThreshold>0.9</minArmorBreakdownThreshold>
+        <bayRenderOffset>(0,0,-0.3)</bayRenderOffset>
+      </li>
+      <li Class="Exosuit.ApparelRenderOffsets">
+        <rootData>
+          <defaultData>
+            <offset>(0,0,0)</offset>
+          </defaultData>
+        </rootData>
+        <equipmentOffsetData>
+          <dataEast>
+            <offset>(0,0,0)</offset>
+          </dataEast>
+          <dataWest>
+            <offset>(0,0,0)</offset>
+          </dataWest>
+          <dataNorth>
+            <offset>(0,0,0)</offset>
+          </dataNorth>
+          <dataSouth>
+            <offset>(0,0,0)</offset>
+          </dataSouth>
+        </equipmentOffsetData>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <AbilityDef>
+    <defName>Exosuit_Stomp</defName>
+    <label>stomp</label>
+    <description>Stomp on enemies using the legs of the exosuit.</description>
+    <iconPath>Apparel/HDWalker1_south</iconPath>
+    <aiCanUse>true</aiCanUse>
+    <targetRequired>False</targetRequired>
+    <cooldownTicksRange>400</cooldownTicksRange>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>2.9</range>
+      <drawAimPie>false</drawAimPie>
+      <warmupTime>0.5</warmupTime>
+      <targetParams>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="CompProperties_AbilityExplosion">
+        <damageDef>Blunt</damageDef>
+        <damageAmount>30</damageAmount>
+        <soundExplode>Explosion_Thump</soundExplode>
+        <explosionRadius>2.9</explosionRadius>
+      </li>
+    </comps>
+  </AbilityDef>
+
+
+</Defs>

@@ -1,0 +1,614 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Defs>
+
+  <!-- Autocannon -->
+
+  <ThingDef ParentName="ModuleItemArmRight">
+    <defName>Aqued_Exosuit_Module_Autocannon</defName>
+    <label>Exosuit Autocannon</label>
+    <description>An autocannon made for the EXO-49 Emancipator Exosuit. It fires high penetration explosive rounds allowing them to stagger heavy-armored units. They are capable of easily dispatching groups of medium-armored enemies.</description>
+    <descriptionHyperlinks>
+      <ThingDef>Aqued_Exosuit_Weapon_Autocannon</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Module_AR</texPath>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Mass>25.70</Mass>
+    </statBases>
+    <recipeMaker>
+      <researchPrerequisites>
+        <li>WG_HeavyExoskeleton</li>
+      </researchPrerequisites>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
+      <workAmount>15000</workAmount>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+    <costList>
+      <Plasteel>65</Plasteel>
+      <Uranium>11</Uranium>
+      <ComponentIndustrial>5</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>Aqued_Exosuit_Apparel_Autocannon</EquipedThingDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ModuleApparelArmRight">
+    <defName>Aqued_Exosuit_Apparel_Autocannon</defName>
+    <label>Exosuit Autocannon</label>
+    <description>An autocannon made for the EXO-49 Emancipator Exosuit. It fires high penetration explosive rounds allowing them to stagger heavy-armored units. They are capable of easily dispatching groups of medium-armored enemies.</description>
+    <descriptionHyperlinks>
+      <ThingDef>Aqued_Exosuit_Weapon_Autocannon</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Weapons/Autocannon</texPath>
+    </graphicData>
+    <uiIconScale>1</uiIconScale>
+    <statBases>
+      <Mass>30.70</Mass>
+    </statBases>
+    <apparel>
+      <bodyPartGroups>
+        <li>Shoulders</li>
+      </bodyPartGroups>
+      <layers>
+        <li>WG_WalkerGearLayer</li>
+      </layers>
+      <parentTagDef>WGApparelBody</parentTagDef>
+      <renderNodeProperties>
+        <li Class="Exosuit.PawnRenderNodeProperties_ApparelWeaponHolder">
+          <parentTagDef>WGApparelBody</parentTagDef>
+          <drawData>
+            <scale>1.8</scale>
+            <dataSouth>
+              <offset>(-1.2,0,-0.55)</offset>
+              <layer>25</layer>
+              <rotationOffset>135</rotationOffset>
+            </dataSouth>
+            <dataNorth>
+              <offset>(1.30,0,1)</offset>
+              <layer>0</layer>
+              <rotationOffset>-47</rotationOffset>
+            </dataNorth>
+            <dataWest>
+              <offset>(-0.5,0,0.8)</offset>
+              <layer>-10</layer>
+              <rotationOffset>-45</rotationOffset>
+            </dataWest>
+            <dataEast>
+              <offset>(0.1,0,-1)</offset>
+              <layer>71</layer>
+              <rotationOffset>45</rotationOffset>
+            </dataEast>
+          </drawData>
+        </li>
+      </renderNodeProperties>
+    </apparel>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>Aqued_Exosuit_Module_Autocannon</ItemDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+      <li Class="Exosuit.CompProperties_ModuleWeapon">
+        <weapon>Aqued_Exosuit_Weapon_Autocannon</weapon>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseGunWithQuality">
+    <defName>Aqued_Exosuit_Weapon_Autocannon</defName>
+    <label>Exosuit Autocannon</label>
+    <description>An autocannon made for the EXO-49 Emancipator Exosuit. It fires high penetration explosive rounds allowing them to stagger heavy-armored units. They are capable of easily dispatching groups of medium-armored enemies.</description>
+    <graphicData>
+      <texPath>Weapons/Autocannon</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>2.5</drawSize>
+    </graphicData>
+    <uiIconPath>Weapons/Autocannon</uiIconPath>
+    <uiIconScale>1</uiIconScale>
+    <statBases>
+      <MarketValue>3000</MarketValue>
+      <Mass>0</Mass>
+      <AccuracyTouch>0.50</AccuracyTouch>
+      <AccuracyShort>0.60</AccuracyShort>
+      <AccuracyMedium>0.70</AccuracyMedium>
+      <AccuracyLong>0.7</AccuracyLong>
+      <RangedWeapon_Cooldown>3</RangedWeapon_Cooldown>
+    </statBases>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <defaultProjectile>Bullet_ExosuitAutocannonBullet</defaultProjectile>
+        <warmupTime>0.5</warmupTime>
+        <range>45.9</range>
+        <forcedMissRadius>0.9</forcedMissRadius>
+        <ticksBetweenBurstShots>12</ticksBetweenBurstShots>
+        <burstShotCount>4</burstShotCount>
+        <soundCast>Shot_TurretSniper</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>9</muzzleFlashScale>
+      </li>
+    </verbs>
+    <equippedAngleOffset>55</equippedAngleOffset>
+    <smeltable>false</smeltable>
+    <techLevel>Ultra</techLevel>
+    <destroyOnDrop>true</destroyOnDrop>
+    <generateCommonality>0</generateCommonality>
+    <useHitPoints>true</useHitPoints>
+    <tickerType>Normal</tickerType>
+    <tradeability>None</tradeability>
+    <relicChance>0</relicChance>
+    <tools>
+      <li>
+        <label>barrel</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>30</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+    </tools>
+    <comps>
+      <li>
+        <compClass>Exosuit.CompApparelForcedWeapon</compClass>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="VEF.Things.ThingDefExtension" MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">
+        <weaponCarryDrawOffsets>
+          <north>
+            <drawOffset>(1.25,0,0.9)</drawOffset>
+          </north>
+          <east>
+            <drawOffset>(0,0,-0.9)</drawOffset>
+          </east>
+          <south>
+            <drawOffset>(-1.1,0,0)</drawOffset>       
+          </south>
+          <west>
+            <drawOffset>(-0.10,-1,1)</drawOffset>
+          </west>
+        </weaponCarryDrawOffsets>
+        <weaponDraftedDrawOffsets>
+          <north>
+            <angleOffset>-153</angleOffset>
+          </north>
+          <east>
+            <angleOffset>-63</angleOffset>
+          </east>
+          <south>      <!-- -Left/+Right, -Back/+Front, -Down/+Up -->
+            <angleOffset>27</angleOffset>
+          </south>
+          <west>
+            <angleOffset>63</angleOffset>
+          </west>
+        </weaponDraftedDrawOffsets>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>Bullet_ExosuitAutocannonBullet</defName>
+    <label>autocannon bullet</label>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <thingClass>Projectile_Explosive</thingClass>
+    <projectile>
+      <damageDef>AutocannonBullet</damageDef>
+      <damageAmountBase>30</damageAmountBase>
+      <explosionRadius>0.6</explosionRadius>
+      <stoppingPower>1.5</stoppingPower>
+      <speed>100</speed>
+    </projectile>
+  </ThingDef>
+
+  <DamageDef ParentName="Bomb">
+    <defName>AutocannonBullet</defName>
+    <defaultDamage>30</defaultDamage>
+    <buildingDamageFactorImpassable>2</buildingDamageFactorImpassable>
+    <buildingDamageFactorPassable>0.5</buildingDamageFactorPassable>
+    <defaultStoppingPower>1.0</defaultStoppingPower>
+    <defaultArmorPenetration>1</defaultArmorPenetration>
+  </DamageDef>
+
+  <!-- Mini Gun -->
+
+  <ThingDef ParentName="ModuleItemArmRight">
+    <defName>Aqued_Exosuit_Module_MiniGun</defName>
+    <label>Patriot Minigun</label>
+    <description>A minigun made for the EXO-45 Patriot Exosuit. It holds 8x60mm FMJ rounds made for lethal fire against unarmored or lightly armored enemies.</description>
+    <descriptionHyperlinks>
+      <ThingDef>Aqued_Exosuit_Weapon_MiniGun</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Module_AR</texPath>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Mass>15.70</Mass>
+    </statBases>
+    <recipeMaker>
+      <researchPrerequisites>
+        <li>WG_HeavyExoskeleton</li>
+      </researchPrerequisites>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
+      <workAmount>10000</workAmount>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+    <costList>
+      <Plasteel>50</Plasteel>
+      <Uranium>10</Uranium>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>Aqued_Exosuit_Apparel_MiniGun</EquipedThingDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ModuleApparelArmRight">
+    <defName>Aqued_Exosuit_Apparel_MiniGun</defName>
+    <label>Patriot Minigun</label>
+    <description>A minigun made for the EXO-45 Patriot Exosuit. It holds 8x60mm FMJ rounds made for lethal fire against unarmored or lightly armored enemies.</description>
+    <descriptionHyperlinks>
+      <ThingDef>Aqued_Exosuit_Weapon_MiniGun</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Weapons/MiniGun</texPath>
+    </graphicData>
+    <uiIconScale>1</uiIconScale>
+    <statBases>
+      <Mass>30.70</Mass>
+    </statBases>
+    <apparel>
+      <bodyPartGroups>
+        <li>Shoulders</li>
+      </bodyPartGroups>
+      <layers>
+        <li>WG_WalkerGearLayer</li>
+      </layers>
+      <parentTagDef>WGApparelBody</parentTagDef>
+      <renderNodeProperties>
+        <li Class="Exosuit.PawnRenderNodeProperties_ApparelWeaponHolder">
+          <parentTagDef>WGApparelBody</parentTagDef>
+          <drawData>
+            <scale>1.8</scale>
+            <dataSouth>
+              <offset>(-1.2,0,-0.55)</offset>
+              <layer>25</layer>
+              <rotationOffset>135</rotationOffset>
+            </dataSouth>
+            <dataNorth>
+              <offset>(1.30,0,1)</offset>
+              <layer>0</layer>
+              <rotationOffset>-47</rotationOffset>
+            </dataNorth>
+            <dataWest>
+              <offset>(-0.5,0,0.8)</offset>
+              <layer>-10</layer>
+              <rotationOffset>-45</rotationOffset>
+            </dataWest>
+            <dataEast>
+              <offset>(0.1,0,-1)</offset>
+              <layer>71</layer>
+              <rotationOffset>45</rotationOffset>
+            </dataEast>
+          </drawData>
+        </li>
+      </renderNodeProperties>
+    </apparel>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>Aqued_Exosuit_Module_MiniGun</ItemDef>
+        <occupiedSlots>
+          <li>ArmRight</li>
+        </occupiedSlots>
+      </li>
+      <li Class="Exosuit.CompProperties_ModuleWeapon">
+        <weapon>Aqued_Exosuit_Weapon_MiniGun</weapon>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseGunWithQuality">
+    <defName>Aqued_Exosuit_Weapon_MiniGun</defName>
+    <label>Patriot Minigun</label>
+    <description>A minigun made for the EXO-45 Patriot Exosuit. It holds 8x60mm FMJ rounds made for lethal fire against unarmored or lightly armored enemies.</description>
+    <graphicData>
+      <texPath>Weapons/MiniGun</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>2.5</drawSize>
+    </graphicData>
+    <uiIconScale>1</uiIconScale>
+    <uiIconPath>Weapons/MiniGun</uiIconPath>
+    <statBases>
+      <MarketValue>3000</MarketValue>
+      <Mass>0</Mass>
+      <AccuracyTouch>0.65</AccuracyTouch>
+      <AccuracyShort>0.5</AccuracyShort>
+      <AccuracyMedium>0.35</AccuracyMedium>
+      <AccuracyLong>0.20</AccuracyLong>
+      <RangedWeapon_Cooldown>2.5</RangedWeapon_Cooldown>
+    </statBases>
+    <equippedAngleOffset>55</equippedAngleOffset>
+    <verbs>
+      <li>
+        <verbClass>Verb_Shoot</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <defaultProjectile>Bullet_ExosuitMinigunBullet</defaultProjectile>
+        <warmupTime>0.75</warmupTime>
+        <range>34.9</range>
+        <ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+        <burstShotCount>18</burstShotCount>
+        <soundCast>Shot_Minigun</soundCast>
+        <soundCastTail>GunTail_Heavy</soundCastTail>
+        <muzzleFlashScale>9</muzzleFlashScale>
+      </li>
+    </verbs>
+    <smeltable>false</smeltable>
+    <techLevel>Ultra</techLevel>
+    <destroyOnDrop>true</destroyOnDrop>
+    <generateCommonality>0</generateCommonality>
+    <useHitPoints>true</useHitPoints>
+    <tickerType>Normal</tickerType>
+    <tradeability>None</tradeability>
+    <relicChance>0</relicChance>
+    <tools>
+      <li>
+        <label>barrel</label>
+        <capacities>
+          <li>Blunt</li>
+          <li>Poke</li>
+        </capacities>
+        <power>30</power>
+        <cooldownTime>1.6</cooldownTime>
+      </li>
+    </tools>
+    <comps>
+      <li>
+        <compClass>Exosuit.CompApparelForcedWeapon</compClass>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="VEF.Things.ThingDefExtension" MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">
+        <weaponCarryDrawOffsets>
+          <north>
+            <drawOffset>(1.25,0,0.9)</drawOffset>
+          </north>
+          <east>
+            <drawOffset>(0,0,-0.9)</drawOffset>
+          </east>
+          <south>
+            <drawOffset>(-1.1,0,0)</drawOffset>       
+          </south>
+          <west>
+            <drawOffset>(-0.10,-1,1)</drawOffset>
+          </west>
+        </weaponCarryDrawOffsets>
+        <weaponDraftedDrawOffsets>
+          <north>
+            <angleOffset>-153</angleOffset>
+          </north>
+          <east>
+            <angleOffset>-63</angleOffset>
+          </east>
+          <south>    
+            <angleOffset>27</angleOffset>
+          </south>
+          <west>
+            <angleOffset>63</angleOffset>
+          </west>
+        </weaponDraftedDrawOffsets>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+<ThingDef ParentName="BaseBullet">
+    <defName>Bullet_ExosuitMinigunBullet</defName>
+    <label>autocannon bullet</label>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile>
+      <damageDef>Bullet</damageDef>
+      <damageAmountBase>15</damageAmountBase>
+      <stoppingPower>0.5</stoppingPower>
+      <speed>80</speed>
+      <armorPenetrationBase>0.3</armorPenetrationBase>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="ModuleItemMountLeft">
+    <defName>Aqued_Exosuit_Module_Rocket_Launcher</defName>
+    <label>Rocket Launcher</label>
+    <description>A shoulder-mounted rocket launcher housing 6 rockets, made for the EXO-45 Patriot Exosuit. It is effective against heavy-armored enemies and can destroy facilities. A clear line of sight is required and the pod needs to be reloaded after the rockets have been fired.</description>
+    <descriptionHyperlinks>
+      <ThingDef>Aqued_Exosuit_Apparel_Rocket_Launcher</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>Module_AL</texPath>
+      <shaderType>CutoutComplex</shaderType>
+    </graphicData>
+    <uiIconScale>1</uiIconScale>
+    <recipeMaker>
+      <researchPrerequisites>
+        <li>WG_HeavyExoskeleton</li>
+      </researchPrerequisites>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+      <recipeUsers>
+        <li>TableMachining</li>
+      </recipeUsers>
+      <effectWorking>Repair</effectWorking>
+      <unfinishedThingDef>UnfinishedWeapon</unfinishedThingDef>
+      <workAmount>10000</workAmount>
+      <soundWorking>Recipe_Machining</soundWorking>
+    </recipeMaker>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Mass>40</Mass>
+    </statBases>
+    <costList>
+      <Plasteel>50</Plasteel>
+      <Uranium>8</Uranium>
+      <ComponentIndustrial>5</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <EquipedThingDef>Aqued_Exosuit_Apparel_Rocket_Launcher</EquipedThingDef>
+        <occupiedSlots>
+          <li>MountLeft</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="ModuleApparelMountLeft">
+    <defName>Aqued_Exosuit_Apparel_Rocket_Launcher</defName>
+    <label>Rocket Launcher</label>
+    <description>A shoulder-mounted rocket launcher housing 6 rockets, made for the EXO-45 Patriot Exosuit. It is effective against heavy-armored enemies and can destroy facilities. A clear line of sight is required and the pod needs to be reloaded after the rockets have been fired.</description>
+    <descriptionHyperlinks>
+      <ThingDef>Aqued_Exosuit_Module_Rocket_Launcher</ThingDef>
+    </descriptionHyperlinks>
+    <graphicData>
+      <texPath>RocketLauncher/Rocket_south</texPath>
+    </graphicData>
+    <uiIconPath>RocketLauncher/Rocket_south</uiIconPath>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Mass>40</Mass>
+    </statBases>
+    <equippedStatOffsets>
+      <MoveSpeed>-0.2</MoveSpeed>
+    </equippedStatOffsets>
+    <apparel>
+      <bodyPartGroups>
+        <li>Torso</li>
+      </bodyPartGroups>
+      <layers>
+        <li>WG_WalkerGearLayer_Utility</li>
+      </layers>
+      <useWornGraphicMask>true</useWornGraphicMask>
+      <wornGraphicPath>RocketLauncher/Rocket</wornGraphicPath>
+      <drawData>
+        <scale>2</scale>
+        <dataSouth>
+          <offset>(1.3,0,0.2)</offset>
+          <layer>80</layer>
+        </dataSouth>
+        <dataNorth>
+          <offset>(-1.25,0,0.3)</offset>
+          <layer>80</layer>
+        </dataNorth>
+        <dataWest>
+          <offset>(0,0,-0.8)</offset>
+          <layer>80</layer>
+        </dataWest>
+        <dataEast>
+          <offset>(0,0,0.75)</offset>
+          <layer>-2</layer>
+        </dataEast>
+      </drawData>
+    </apparel>
+    <verbs>
+      <li>
+        <label>launch missile</label>
+        <verbClass>Verb_LaunchProjectile</verbClass>
+        <hasStandardCommand>true</hasStandardCommand>
+        <commandIcon>Things/Projectile/Rocket_Big</commandIcon>
+        <onlyManualCast>True</onlyManualCast>
+        <range>55.9</range>
+        <forcedMissRadius>1.9</forcedMissRadius>
+        <warmupTime>2</warmupTime>
+        <noiseRadius>4</noiseRadius>
+        <ai_IsWeapon>false</ai_IsWeapon>
+        <targetable>true</targetable>
+        <ai_IsBuildingDestroyer>true</ai_IsBuildingDestroyer>
+        <soundCast>RocketswarmLauncher_Fire</soundCast>
+        <soundCastTail>GunTail_Medium</soundCastTail>
+        <muzzleFlashScale>14</muzzleFlashScale>
+        <drawHighlightWithLineOfSight>false</drawHighlightWithLineOfSight>
+        <targetParams>
+          <canTargetLocations>true</canTargetLocations>
+          <canTargetBuildings>true</canTargetBuildings>
+        </targetParams>
+        <defaultProjectile>Bullet_RocketHelldivers</defaultProjectile>
+        <rangedFireRulepack>Combat_RangedFire</rangedFireRulepack>
+      </li>
+    </verbs>
+    <comps>
+      <li Class="CompProperties_ApparelReloadable">
+        <maxCharges>6</maxCharges>
+        <ammoDef>Chemfuel</ammoDef>
+        <ammoCountPerCharge>20</ammoCountPerCharge>
+        <baseReloadTicks>60</baseReloadTicks>
+        <soundReload>Standard_Reload</soundReload>
+        <hotKey>Misc4</hotKey>
+        <chargeNoun>rocket</chargeNoun>
+        <displayGizmoWhileUndrafted>false</displayGizmoWhileUndrafted>
+      </li>
+      <li Class="Exosuit.CompProperties_ExosuitModule">
+        <ItemDef>Aqued_Exosuit_Module_Rocket_Launcher</ItemDef>
+        <occupiedSlots>
+          <li>MountLeft</li>
+        </occupiedSlots>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseBullet">
+    <defName>Bullet_RocketHelldivers</defName>
+    <label>rocket</label>
+    <graphicData>
+      <texPath>Things/Projectile/Rocket_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+    </graphicData>
+    <thingClass>Projectile_Explosive</thingClass>
+    <projectile>
+      <damageDef>Bomb</damageDef>
+      <damageAmountBase>60</damageAmountBase>
+      <explosionRadius>3.9</explosionRadius>
+      <speed>55</speed>
+    </projectile>
+  </ThingDef>
+
+</Defs>

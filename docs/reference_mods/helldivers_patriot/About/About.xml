@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Helldivers Patriot Exosuit</name>
+	<packageId>Aqued.Exosuits</packageId>
+	<author>Aqued</author>
+	<supportedVersions>
+		<li>1.6</li>
+	</supportedVersions>
+	<description>Adds the Exo-45 Patriot Exosuit from Helldivers 2.</description>
+	<loadAfter>
+		<li>Ludeon.RimWorld</li>
+	</loadAfter>
+	<modDependencies>
+		<li>
+			<packageId>aoba.exosuit.framework</packageId>
+			<displayName>Exosuit Framework</displayName>
+			<steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3352894993</steamWorkshopUrl>
+		</li>
+	</modDependencies>
+</ModMetaData>

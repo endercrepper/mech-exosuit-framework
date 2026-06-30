@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Architettura Classi</title>
+<style>
+
+:root {
+  --bg: #f5f5f4;
+  --card: #ebeae8;
+  --header-fill: #4e4732;
+  --cover-block: #746c56;
+  --border: #c5bfac;
+  --icon: #a48e4b;
+  --accent: #92761f;
+  --accent-2: #3aa0c2;
+  --text-primary: #151513;
+  --text-muted: #7e7c74;
+  --node-fill: #faf7f0;
+  --node-fill-accent: #fdf3e0;
+  --node-fill-danger: #fae8e6;
+  --node-fill-ok: #e8f4ec;
+  --node-fill-mech: #e8eef4;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  font-family: 'Noto Sans SC', 'Inter', sans-serif;
+  color: var(--text-primary);
+  padding: 30px;
+}
+.canvas {
+  position: relative;
+  background: var(--bg);
+  padding: 0;
+}
+
+.canvas { width: 1400px; height: 1000px; padding: 30px; }
+.title-bar { font-size: 24px; font-weight: 700; color: var(--header-fill); margin-bottom: 6px; border-bottom: 2px solid var(--accent); padding-bottom: 6px; }
+.subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 30px; }
+
+.layer-band {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  height: 38px;
+  border-left: 4px solid var(--accent);
+  padding-left: 12px;
+  padding-top: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--header-fill);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: rgba(146, 118, 31, 0.04);
+}
+
+.layer-1 { top: 110px; }
+.layer-2 { top: 360px; }
+.layer-3 { top: 660px; }
+
+.node {
+  position: absolute;
+  width: 240px;
+  background: var(--node-fill);
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 11px;
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.node .cls-name { font-weight: 700; color: var(--header-fill); font-size: 12px; margin-bottom: 4px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+.node .methods { color: var(--text-muted); font-family: 'Liberation Mono', monospace; font-size: 10px; }
+.node.our { background: var(--node-fill-accent); border-color: var(--accent); border-left-width: 4px; }
+.node.our .cls-name { color: var(--accent); }
+.node.ext { background: var(--node-fill-mech); border-color: var(--accent-2); border-style: dashed; }
+.node.ext .cls-name { color: var(--accent-2); }
+
+/* positions */
+.n-comp-subcore { left: 60px; top: 170px; }
+.n-comp-battery { left: 330px; top: 170px; }
+.n-tab { left: 600px; top: 170px; }
+.n-jobdriver { left: 870px; top: 170px; }
+.n-building { left: 1140px; top: 170px; width: 220px; }
+
+.n-pawnkind { left: 60px; top: 420px; width: 220px; }
+.n-bodydef { left: 320px; top: 420px; width: 220px; }
+.n-thingdef-mech { left: 580px; top: 420px; width: 220px; }
+.n-thingdef-relic { left: 840px; top: 420px; width: 220px; }
+.n-thingdef-destroyed { left: 1100px; top: 420px; width: 260px; }
+
+.n-ef-core { left: 80px; top: 720px; width: 220px; }
+.n-ef-maint { left: 340px; top: 720px; width: 220px; }
+.n-ef-destroy { left: 600px; top: 720px; width: 220px; }
+.n-si { left: 860px; top: 720px; width: 220px; }
+.n-vanilla-mech { left: 1120px; top: 720px; width: 240px; }
+
+/* arrows */
+svg.connectors { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.arrow-line { stroke: var(--cover-block); stroke-width: 1.2; fill: none; marker-end: url(#arr); }
+.arrow-line.dashed { stroke-dasharray: 4 3; stroke: var(--accent-2); }
+.legend {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  display: flex;
+  gap: 20px;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-swatch { width: 14px; height: 10px; border: 1px solid; border-radius: 2px; }
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="title-bar">Architettura C# — [Mod Name]</div>
+  <div class="subtitle">Classi nostre (rame), Dipendenze Exosuit Framework (blu tratteggiato), Dipendenze vanilla/SubcoreInfo (grigio)</div>
+
+  <div class="layer-band layer-1">Layer 1 — Comportamenti runtime (ThingComp / Building / ITab)</div>
+
+  <div class="node our n-comp-subcore">
+    <div class="cls-name">CompSubcorePilot : ThingComp</div>
+    <div class="methods">
++ InstalledSubcore: Thing<br>
++ SubcoreHP: int<br>
++ PostSpawnSetup()<br>
++ CompTick():<br>
+&nbsp;&nbsp;tick subcore damage<br>
++ Notify_Damaged(amount)<br>
++ ExtractSubcore(): Thing<br>
++ PostDestroy()
+    </div>
+  </div>
+
+  <div class="node our n-comp-battery">
+    <div class="cls-name">CompMechExosuitBattery : ThingComp</div>
+    <div class="methods">
++ Energy: float<br>
++ MaxEnergy: float<br>
++ CompTick()<br>
++ Notify_LowPower()<br>
++ Recharge(amount)<br>
++ CanOperate: bool
+    </div>
+  </div>
+
+  <div class="node our n-tab">
+    <div class="cls-name">ITab_HybridBay : ITab</div>
+    <div class="methods">
++ FillTab()<br>
++ DrawLoadoutSelector()<br>
++ DrawGestationProgress()<br>
++ DrawSubcorePanel()<br>
++ DrawBatteryStatus()
+    </div>
+  </div>
+
+  <div class="node our n-jobdriver">
+    <div class="cls-name">JobDriver_DismantleRelic : JobDriver</div>
+    <div class="methods">
++ MakeNewToils()<br>
+&nbsp;&nbsp;→ go to relic<br>
+&nbsp;&nbsp;→ work 200 ticks<br>
+&nbsp;&nbsp;→ spawn products<br>
+&nbsp;&nbsp;→ consume relic
+    </div>
+  </div>
+
+  <div class="node our n-building">
+    <div class="cls-name">Building_HybridGestator : Building_MaintenanceBay</div>
+    <div class="methods">
++ GestationRecipe: RecipeDef<br>
++ InstalledSubcore: Thing<br>
++ GestationProgress: float<br>
++ Tick():<br>
+&nbsp;&nbsp;tick gestation<br>
+&nbsp;&nbsp;tick charging<br>
++ GetFloatMenuOptions()<br>
++ TryStartGestation()<br>
++ TryExtractSubcore()
+    </div>
+  </div>
+
+  <div class="layer-band layer-2">Layer 2 — Defs XML (static data)</div>
+
+  <div class="node n-pawnkind">
+    <div class="cls-name">PawnKindDef (mech-exosuit)</div>
+    <div class="methods">
+Parent: BaseMechanoid<br>
++ race: MechExosuitRace<br>
++ combatPower: 350<br>
++ lifeStages
+    </div>
+  </div>
+
+  <div class="node n-bodydef">
+    <div class="cls-name">BodyDef (MechExosuitBody)</div>
+    <div class="methods">
++ corePart: Torso<br>
+&nbsp;&nbsp;→ Subcore (internal)<br>
++ parts: Head, Arms, Legs<br>
+Subcore: HP=100/175<br>
+coverage=0.10 (low)
+    </div>
+  </div>
+
+  <div class="node n-thingdef-mech">
+    <div class="cls-name">ThingDef MechExosuitRace</div>
+    <div class="methods">
+Parent: BaseMechanoid<br>
++ comps:<br>
+&nbsp;&nbsp;CompSubcorePilot<br>
+&nbsp;&nbsp;CompMechExosuitBattery<br>
++ modExtensions:<br>
+&nbsp;&nbsp;MechExosuitExt
+    </div>
+  </div>
+
+  <div class="node n-thingdef-relic">
+    <div class="cls-name">ThingDef SealedRelic</div>
+    <div class="methods">
++ category: Item<br>
++ destroyOnDrop: false<br>
++ comps: CompForbiddable<br>
++ recipes: DismantleRelic
+    </div>
+  </div>
+
+  <div class="node n-thingdef-destroyed">
+    <div class="cls-name">ThingDef DestroyedSubcore</div>
+    <div class="methods">
++ category: Item<br>
++ tradeability: None<br>
++ recipes: SmashAtMachiningTable<br>
+products: Steel(15),<br>ComponentIndustrial(1)
+    </div>
+  </div>
+
+  <div class="layer-band layer-3">Layer 3 — API esterne (sola lettura, soft/hard dep)</div>
+
+  <div class="node ext n-ef-core">
+    <div class="cls-name">Exosuit.Exosuit_Core</div>
+    <div class="methods">
+[Exosuit Framework]<br>
+ThingClass base dell'apparel<br>
+— usato come riferimento<br>
+per i pattern di damage
+    </div>
+  </div>
+
+  <div class="node ext n-ef-maint">
+    <div class="cls-name">Exosuit.Building_MaintenanceBay</div>
+    <div class="methods">
+[Exosuit Framework]<br>
+Classe base della nostra<br>Building_HybridGestator<br>
++ ITab_Exosuit (riferim.)
+    </div>
+  </div>
+
+  <div class="node ext n-ef-destroy">
+    <div class="cls-name">Exosuit.IExosuitDestructionHandler</div>
+    <div class="methods">
+[Exosuit Framework]<br>
+Interfaccia hook<br>
+OnExosuitDestroyed(...)<br>
+— la implementiamo per<br>
+droppare il relitto
+    </div>
+  </div>
+
+  <div class="node ext n-si">
+    <div class="cls-name">SubcoreInfo.SubcoreInfoUtility</div>
+    <div class="methods">
+[SubcoreInfo, soft dep]<br>
++ CopySubcoreInfo(src, dst)<br>
+— chiamato in install<br>
+e in relic-open
+    </div>
+  </div>
+
+  <div class="node ext n-vanilla-mech">
+    <div class="cls-name">Vanilla Mech / Mechanitor</div>
+    <div class="methods">
+[RimWorld core]<br>
+CompOverseerSubject<br>
++ BandwidthCost<br>
++ ControlGroup<br>
+Mechanitor → assegnazione
+    </div>
+  </div>
+
+  <!-- SVG connectors -->
+  <svg class="connectors" viewBox="0 0 1400 1000" preserveAspectRatio="none">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="var(--cover-block)"/>
+      </marker>
+      <marker id="arrDashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="var(--accent-2)"/>
+      </marker>
+    </defs>
+    <!-- Layer 1 internal links -->
+    <path class="arrow-line" d="M 540,200 L 600,200" />
+    <path class="arrow-line" d="M 840,200 L 870,200" />
+    <path class="arrow-line" d="M 1110,200 L 1140,200" />
+    <!-- Layer 1 -> Layer 2 -->
+    <path class="arrow-line" d="M 180,270 L 180,420" />
+    <path class="arrow-line" d="M 450,270 L 320,420" />
+    <path class="arrow-line" d="M 720,270 L 580,420" />
+    <path class="arrow-line" d="M 990,270 L 840,420" />
+    <!-- Layer 2 internal -->
+    <path class="arrow-line" d="M 280,460 L 320,460" />
+    <path class="arrow-line" d="M 540,460 L 580,460" />
+    <path class="arrow-line" d="M 800,460 L 840,460" />
+    <path class="arrow-line" d="M 1060,460 L 1100,460" />
+    <!-- Layer 2 -> Layer 3 (soft deps, dashed) -->
+    <path class="arrow-line dashed" d="M 690,510 L 450,720" />
+    <path class="arrow-line dashed" d="M 800,510 L 700,720" />
+    <path class="arrow-line dashed" d="M 1100,490 L 220,720" />
+    <path class="arrow-line dashed" d="M 580,510 L 1000,720" />
+    <path class="arrow-line dashed" d="M 1180,510 L 1240,720" />
+  </svg>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-swatch" style="background: var(--node-fill-accent); border-color: var(--accent);"></div>Classi nostre (Nuove)</div>
+    <div class="legend-item"><div class="legend-swatch" style="background: var(--node-fill); border-color: var(--border);"></div>Defs XML</div>
+    <div class="legend-item"><div class="legend-swatch" style="background: var(--node-fill-mech); border-color: var(--accent-2); border-style: dashed;"></div>API esterne (dipendenze)</div>
+    <div class="legend-item">→ dipendenza hard &nbsp;&nbsp; ╌╌→ dipendenza soft (opzionale)</div>
+  </div>
+</div>
+</body>
+</html>
