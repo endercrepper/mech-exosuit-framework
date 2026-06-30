@@ -128,13 +128,16 @@ def build_section_09(story, ctx):
         ['ModName_BatteryOptimization', '3.000',
          'ModName_HybridMechtech',
          'Battery capacity ×1.5 (Standard 18h, High 27h)'],
+        ['ModName_AIPersonaSubcoreTech', '8.000',
+         'ModName_AdvancedMechExosuit + High Mechtech (vanilla)',
+         'Persona AI Subcore crafting; nuovo tier con +8 skill, +25% battery, +2 BW'],
         ['ModName_MasterMechExosuit', '10.000',
          'Tutti e 3 i nodi intermedi',
          'Riparazione subcore senza perdita di maxHP; frame custom (scout, constructor)'],
     ]
     story.append(dt(headers, rows, col_ratios=[0.28, 0.15, 0.22, 0.35]))
     story.append(cap('Tabella 9.1 — Nodi di ricerca di [Mod Name]. '
-                      'Costo totale: 27.000 research points (~5-7 ore gioco per completare).'))
+                      'Costo totale: 35.000 research points (~7-9 ore gioco per completare, incluso AI Persona).'))
     
     # ── 9.3 Techprints ──
     story.append(P('<b>9.3 — Techprints</b>', ctx['styles']['H2']))
@@ -157,12 +160,14 @@ def build_section_09(story, ctx):
          'Quest: "Subcore High Recovery" (rare quest reward)'],
         ['ModName_BatteryOptimization', '1',
          'Trade: outlander towns (uncommon)'],
+        ['ModName_AIPersonaSubcoreTech', '3',
+         'Quest: "Ancient AI Persona Vault" (very rare, late game); 1 da imperial royal'],
         ['ModName_MasterMechExosuit', '3',
          'Quest: "Ancient Mech Lab" (very rare, late game)'],
     ]
     story.append(dt(headers, rows, col_ratios=[0.35, 0.20, 0.45]))
-    story.append(cap('Tabella 9.2 — Techprints per nodo. I techprint sono item '
-                      'che dimezzano il costo di ricerca e sono ricercabili solo quando posseduti.'))
+    story.append(cap('Tabella 9.2 — Techprints per nodo. Il Persona AI Subcore Tech richiede '
+                      '3 techprints (1 da quest vault antico + 1 da imperial royal + 1 da trade rare).'))
     
     # ── 9.4 Positioning in vanilla tree ──
     story.append(P('<b>9.4 — Posizionamento nell\'albero vanilla</b>',

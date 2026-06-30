@@ -22,11 +22,15 @@ def build_section_12(story, ctx):
     headers = ['Termine', 'Tipo', 'Definizione']
     rows = [
         ['Subcore', 'vanilla',
-         'Oggetto (Thing) prodotto da softscanner o ripscanner. Esistono 3 tier: Basic, Standard, High. In [Mod Name] usiamo solo Standard e High.'],
+         'Oggetto (Thing) prodotto da softscanner o ripscanner. Esistono 3 tier vanilla: Basic, Standard, High. In [Mod Name] usiamo Standard e High, più un nuovo tier custom Persona AI (vedi voce dedicata).'],
         ['SubcoreRegular', 'vanilla',
          'ThingDef del subcore Standard. HP vanilla 50, usato come pilota per mech-exosuit con HP custom 100.'],
         ['SubcoreHigh', 'vanilla',
          'ThingDef del subcore High. HP vanilla 80, usato come pilota per mech-exosuit con HP custom 175. Bonus +4 a tutte le skill della suit.'],
+        ['Persona Core', 'vanilla',
+         'Item raro di RimWorld vanilla. Normalmente usato per pilotare ship AI. In [Mod Name] è un ingrediente per craftare il Persona AI Subcore.'],
+        ['Persona AI Subcore (ModName_SubcorePersonaAI)', '[Mod Name]',
+         'Nuovo ThingDef custom della mod. Tier 3 del sistema subcore: +8 skill, 250 HP, +2 BW, +25% battery rispetto al Standard. Craftato a partire da un Persona Core vanilla.'],
         ['Bandwidth', 'vanilla',
          'Risorsa del mechanitor che limita il numero di mech assegnabili. Ogni mech ha un bandwidthCost (1-5). I mech-exosuit consumano bandwidth come mech vanilla.'],
         ['Mechanitor', 'vanilla',

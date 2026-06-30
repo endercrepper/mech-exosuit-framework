@@ -36,12 +36,15 @@ def build_section_08(story, ctx):
         'di ciascuna suit siano preservati. Le uniche tre variabili che '
         '[Mod Name] calibra sono: <b>(1) la durata della batteria</b> (Tabella 8.4), '
         '<b>(2) il costo in bandwidth</b> (Tabella 8.1 e 8.9), e <b>(3) il bonus skill</b> '
-        'del subcore (Standard: +0, High: +4). '
-        '<b>Il subcore High è uno trade-off</b>: fornisce più skill (+4) e più HP '
-        '(175 vs 100), ma consuma più batteria (−25% durata) e più bandwidth '
-        '(+1 rispetto a Standard). Questo riflette il fatto che un processore più '
-        'potente è più abile ma anche più esigente — assorbe più energia e '
-        'richiede più "attenzione" dal mechanitor.',
+        'del subcore. '
+        '<b>Tre tier di subcore</b> sono supportati, ciascuno con un trade-off diverso: '
+        '<b>Standard</b> (base, +0 skill, BW base, battery base), '
+        '<b>High</b> (+4 skill, +75 HP, +1 BW, −25% battery), e '
+        '<b>Persona AI</b> (+8 skill, +150 HP, +2 BW, +25% battery). '
+        'Il Persona AI è l\'unico tier che <b>migliora</b> la durata della batteria '
+        'rispetto al Standard — la sua vera intelligenza ottimizza dinamicamente '
+        'il consumo energetico. Tuttavia costa più bandwidth di tutti perché '
+        'il mechanitor deve gestire un\'entità senziente.',
         color=ctx['colors']['accent']
     ))
     
@@ -55,23 +58,24 @@ def build_section_08(story, ctx):
     ))
     
     headers = ['Suit', 'Mod di origine', 'Ruolo',
-               'BW (Std)', 'BW (High)', 'Tier']
+               'BW (Std)', 'BW (High)', 'BW (AI)', 'Tier']
     rows = [
         ['EXO-45 Patriot', 'Aqued.Exosuits (Helldivers)',
-         'Combat pesante (ranged)', '3', '4', 'Medio'],
+         'Combat pesante (ranged)', '3', '4', '5', 'Medio'],
         ['AMP Suit', 'Aoba.Exosuit.AMP',
-         'Combat bilanciato (ranged + melee)', '3', '4', 'Medio'],
+         'Combat bilanciato (ranged + melee)', '3', '4', '5', 'Medio'],
         ['PV-8 Zyklop (Mobile Dragon)', 'Aoba.DeadManSwitch.MobileDragoon',
-         'Combat veloce (scout)', '3', '4', 'Avanzato'],
+         'Combat veloce (scout)', '3', '4', '5', 'Avanzato'],
         ['PV-8R0N Brawnson (Pirate)', 'amiti.pirateexosuit',
-         'Combat pesante alternativo (tank)', '4', '5', 'Alto'],
+         'Combat pesante alternativo (tank)', '4', '5', '6', 'Alto'],
         ['P-5000 Powered Work Loader', 'Aoba.Exosuit.PowerLoader',
-         'Utility (hauling + construction)', '2', '3', 'Base'],
+         'Utility (hauling + construction)', '2', '3', '4', 'Base'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.20, 0.24, 0.26, 0.10, 0.10, 0.10]))
+    story.append(dt(headers, rows, col_ratios=[0.20, 0.22, 0.24, 0.09, 0.09, 0.08, 0.08]))
     story.append(cap('Tabella 8.1 — Panoramica delle 5 exosuit supportate. '
                       'Il bandwidth cost dipende dal tier del subcore installato: '
-                      'High consuma +1 bandwidth rispetto a Standard ma fornisce +4 a tutte le skill.'))
+                      'High consuma +1 BW (ma +4 skill, −25% battery); '
+                      'Persona AI consuma +2 BW (ma +8 skill, +25% battery).'))
     
     # ── 8.2 Confronto stat meccaniche ──
     story.append(P('<b>8.2 — Confronto stat meccaniche (tutte le suit)</b>',
@@ -105,7 +109,9 @@ def build_section_08(story, ctx):
         "L'HP del subcore è <b>separato dall'HP del mech</b> ed è determinato "
         "esclusivamente dal tier del subcore installato. È uniforme tra "
         "tutte le suit — il subcore è un componente standard vanilla, "
-        "non dipende dalla suit che lo ospita."
+        "non dipende dalla suit che lo ospita. Il tier Persona AI usa un "
+        "<b>nuovo ThingDef custom</b> (<code>ModName_SubcorePersonaAI</code>) "
+        "creato dalla mod a partire da un Persona Core vanilla."
     ))
     
     headers = ['Tier subcore', 'HP massimi', 'Soglia sopravvivenza (30%)',
@@ -115,9 +121,12 @@ def build_section_08(story, ctx):
          '70 (da 100 residui × 0.7)', '49 (da 70 residui × 0.7)'],
         ['High (SubcoreHigh)', '175', '52',
          '122 (da 175 residui × 0.7)', '85 (da 122 residui × 0.7)'],
+        ['Persona AI (ModName_SubcorePersonaAI)', '250', '75',
+         '175 (da 250 residui × 0.7)', '122 (da 175 residui × 0.7)'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.20, 0.15, 0.20, 0.25, 0.20]))
-    story.append(cap('Tabella 8.3 — HP del subcore per tier. Indipendente dalla suit ospitante.'))
+    story.append(dt(headers, rows, col_ratios=[0.28, 0.12, 0.16, 0.22, 0.22]))
+    story.append(cap('Tabella 8.3 — HP del subcore per tier. Il Persona AI è il più resistente '
+                      'e sopravvive a ~5 cicli di morte-recupero (vs ~4 del High, ~4 dello Standard).'))
     
     # ── 8.4 Battery capacity per suit ──
     story.append(P('<b>8.4 — Capacità della batteria per suit × tier</b>',
@@ -130,7 +139,7 @@ def build_section_08(story, ctx):
         "originali</b> — non vengono modificate. La durata della batteria "
         "è calibrata in base a due fattori: <b>consumo energetico della "
         "suit</b> (MoveSpeed × massa × sistemi attivi) e <b>tier del "
-        "subcore</b> (il subcore High assorbe più energia del Standard)."
+        "subcore</b>."
     ))
     
     story.append(body(
@@ -140,35 +149,86 @@ def build_section_08(story, ctx):
         "consumano molto per via dei motori ad alta potenza necessari "
         "per MoveSpeed elevata, anche se l'armor è bassa. <b>Il subcore "
         "High riduce la durata della batteria del ~25%</b> rispetto al "
-        "Standard — il processore più potente assorbe più energia."
+        "Standard (processore più potente, più assorbimento). <b>Il "
+        "Persona AI invece aumenta la durata del ~25%</b> rispetto al "
+        "Standard — la sua vera intelligenza ottimizza dinamicamente il "
+        "consumo energetico."
     ))
     
-    headers = ['Suit', 'Standard (h gioco)', 'High (h gioco)',
-               'Consumo power', 'Razionale consumo']
+    headers = ['Suit', 'Std (h)', 'High (h)', 'Persona AI (h)',
+               'Consumo power', 'Razionale consumo suit']
     rows = [
-        ['Powered Work Loader', '18', '14', '300 W',
+        ['Powered Work Loader', '18', '14', '22', '300 W',
          'Basso: armor 0.80, MoveSpeed 2.8, niente combat systems'],
-        ['Mobile Dragon (PV-8)', '10', '8', '400 W',
+        ['Mobile Dragon (PV-8)', '10', '8', '12', '400 W',
          'Medio-basso: armor bassa MA MoveSpeed 6.2 (motore potente)'],
-        ['Patriot', '12', '9', '350 W',
+        ['Patriot', '12', '9', '15', '350 W',
          'Medio: armor alta 1.70, sistemi weapon pesanti (minigun/rocket)'],
-        ['AMP', '12', '9', '350 W',
+        ['AMP', '12', '9', '15', '350 W',
          'Medio: armor media 1.50, 4 slot weapon (ranged + melee)'],
-        ['Pirate Brawnson', '9', '7', '400 W',
+        ['Pirate Brawnson', '9', '7', '11', '400 W',
          'Alto: armor 1.60, tank puro con servomotori pesanti per melee'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.22, 0.12, 0.12, 0.14, 0.40]))
+    story.append(dt(headers, rows, col_ratios=[0.22, 0.08, 0.09, 0.14, 0.13, 0.34]))
     story.append(cap('Tabella 8.4 — Durata batteria per combinazione suit × tier. '
-                      'Il subcore High riduce la durata del ~25% (consumo energetico maggiore). '
-                      'Il Powered Work Loader ha la durata maggiore (utility); '
-                      'il Pirate Brawnson + High subcore la minore (7h).'))
+                      'Persona AI = +25% vs Standard; High = −25% vs Standard. '
+                      'Il Pirate Brawnson + High subcore ha la durata minore (7h); '
+                      'il Powered Work Loader + Persona AI ha la durata maggiore (22h).'))
     
     story.append(body(
-        "Il <b>trade-off del subcore High</b> è quindi triplo: fornisce "
-        "+4 a tutte le skill e +75 HP (175 vs 100), ma costa 1 bandwidth "
-        "in più e riduce la durata della batteria del 25%. Il giocatore "
-        "deve decidere se vale la pena per ogni singolo mech-exosuit "
-        "che fielda — non è una scelta automatica."
+        "Il <b>trade-off dei tre tier</b> è quindi: "
+        "<b>Standard</b> = base; "
+        "<b>High</b> = +4 skill, +75 HP, +1 BW, −25% battery; "
+        "<b>Persona AI</b> = +8 skill, +150 HP, +2 BW, +25% battery. "
+        "Il giocatore deve decidere se vale la pena per ogni singolo "
+        "mech-exosuit che fielda — non è una scelta automatica."
+    ))
+    
+    # ── 8.4.1 Persona AI subcore crafting ──
+    story.append(P('<b>8.4.1 — Crafting del Persona AI Subcore</b>',
+                   ctx['styles']['H3']))
+    story.append(body(
+        "Il <code>ModName_SubcorePersonaAI</code> è un nuovo ThingDef "
+        "custom creato dalla mod. Non esiste in vanilla — vanilla ha "
+        "solo il <code>Persona Core</code> (usato per le ship AI). "
+        "La nostra mod lo trasforma in un subcore mech-pilotable."
+    ))
+    
+    headers = ['Componente', 'Quantità', 'Note']
+    rows = [
+        ['Persona Core (vanilla)', '1',
+         'Item raro, drop da raid late game o quest reward'],
+        ['SubcoreRegular (vanilla)', '1',
+         'Usato come "contenitore" — fornisce la struttura fisica'],
+        ['ComponentSpacer', '4',
+         'Per i circuiti di interfaccia AI'],
+        ['AI Persona Fragment (ModName)', '1',
+         'Nuovo item custom — drop raro da mech-hostile AI'],
+        ['Work to make', '120.000 ticks (~16h gioco)',
+         'Con 1 pawn crafter Crafting 12+'],
+        ['Skill requirements', 'Crafting 12',
+         'Più esigente del High (Crafting 8)'],
+        ['Recipe user', 'SubcoreEncoder (vanilla)',
+         'Riutilizza il building vanilla'],
+        ['Research prereq', 'ModName_AIPersonaSubcoreTech',
+         'Nuovo nodo research, vedi Sezione 9'],
+    ]
+    story.append(dt(headers, rows, col_ratios=[0.30, 0.25, 0.45]))
+    story.append(cap('Tabella 8.4.1 — Costo crafting del Persona AI Subcore. '
+                      'Il Persona Core vanilla è il componente più raro: limita la produzione di questo tier.'))
+    
+    story.append(body(
+        "<b>Lore del Persona AI Subcore</b>: normalmente un Persona Core "
+        "è usato per pilotare navi stellari — contiene un'AI senziente. "
+        "La mod nostra permette di \"imbottigliare\" questa AI in un "
+        "subcore mech-exosuit, ottenendo un pilota con vera intelligenza "
+        "tattica (da cui le skill elevate e l'ottimizzazione dinamica "
+        "dell'energia). Tuttavia, gestire un'entità senziente richiede "
+        "più attenzione da parte del mechanitor (da cui il +2 BW). "
+        "L'AI Persona Fragment è un drop raro da mech con AI (es. "
+        "Centipede con AI core) — simboleggia il \"materiale di "
+        "calibrazione\" necessario per sincronizzare il Persona Core "
+        "con il frame mech-exosuit."
     ))
     
     # ── 8.5 Crafting costs ──
@@ -288,27 +348,28 @@ def build_section_08(story, ctx):
         "senza essere eccessivamente potenti. Confronto diretto:"
     ))
     
-    headers = ['Tipo mech', 'BW (Std subcore)', 'BW (High subcore)',
+    headers = ['Tipo mech', 'BW (Std)', 'BW (High)', 'BW (AI)',
                'Combat power', 'Note']
     rows = [
-        ['Vanilla Lifter', '1', '—', 'Basso', 'Mini-mech utility'],
-        ['Vanilla Constructoid', '2', '—', 'Basso', 'Mini-mech construction'],
-        ['Vanilla Pikeman', '3', '—', 'Medio', 'Combat mech ranged'],
-        ['Vanilla Centipede', '5', '—', 'Alto', 'Heavy combat mech'],
-        ['ModName Powered Work Loader', '2', '3', 'Basso (utility)',
+        ['Vanilla Lifter', '1', '—', '—', 'Basso', 'Mini-mech utility'],
+        ['Vanilla Constructoid', '2', '—', '—', 'Basso', 'Mini-mech construction'],
+        ['Vanilla Pikeman', '3', '—', '—', 'Medio', 'Combat mech ranged'],
+        ['Vanilla Centipede', '5', '—', '—', 'Alto', 'Heavy combat mech'],
+        ['ModName Powered Work Loader', '2', '3', '4', 'Basso (utility)',
          'Equivalente a Constructoid; supporta anche hauling e mining'],
-        ['ModName Patriot', '3', '4', 'Medio-alto',
+        ['ModName Patriot', '3', '4', '5', 'Medio-alto',
          'Equivalente a Pikeman ma con loadout config (minigun/rocket)'],
-        ['ModName AMP', '3', '4', 'Medio-alto',
+        ['ModName AMP', '3', '4', '5', 'Medio-alto',
          'Equivalente a Pikeman; versatile ranged + melee'],
-        ['ModName Mobile Dragon', '3', '4', 'Medio-alto (scout)',
+        ['ModName Mobile Dragon', '3', '4', '5', 'Medio-alto (scout)',
          'Equivalente a Pikeman; più veloce ma più fragile'],
-        ['ModName Pirate Brawnson', '4', '5', 'Alto (tank)',
-         'Equivalente a Centipede con subcore High; tank melee puro'],
+        ['ModName Pirate Brawnson', '4', '5', '6', 'Alto (tank)',
+         'Con Persona AI = 6 BW (più del Centipede vanilla!)'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.26, 0.13, 0.13, 0.20, 0.28]))
+    story.append(dt(headers, rows, col_ratios=[0.25, 0.10, 0.10, 0.10, 0.18, 0.27]))
     story.append(cap('Tabella 8.9 — Confronto bandwidth con mech vanilla. '
-                      'Il subcore High aggiunge +1 a tutti i valori (più skill, più potenza, più attenzione del mechanitor).'))
+                      'Il subcore High aggiunge +1 BW; il Persona AI aggiunge +2 BW. '
+                      'Il Pirate Brawnson con Persona AI arriva a 6 BW, superando il Centipede vanilla.'))
     
     story.append(body(
         "Il Pirate Brawnson è l'unica suit che parte da bandwidth 4 — "
@@ -319,6 +380,16 @@ def build_section_08(story, ctx):
         "La Mobile Dragon è a 3 (non 4) perché la sua velocità "
         "(6.2 vs 3.5 Patriot) è bilanciata dall'armor molto più bassa "
         "(1.20 sharp vs 1.70 Patriot)."
+    ))
+    
+    story.append(body(
+        "<b>Il Persona AI è il primo caso in cui una nostra suit supera "
+        "il Centipede vanilla in bandwidth cost</b> (Brawnson + Persona AI "
+        "= 6 BW vs Centipede 5). Questo è bilanciato dal fatto che il "
+        "Brawnson + Persona AI ha +8 skill (Melee 14→22, vicino al cap), "
+        "+150 HP subcore, e +25% battery. È una forza tattica che il "
+        "giocatore può fieldare solo se ha un mechanitor estremamente "
+        "avanzato (richiede molti bandwidth boost)."
     ))
     
     # ── 8.10 Suit-specific notes ──
@@ -384,31 +455,26 @@ def build_section_08(story, ctx):
     story.append(body(
         "Le 5 suit coprono l'intero spettro di ruoli senza sovrapposizioni "
         "eccessive. Il giocatore che vuole fieldare tutti e 5 i tipi "
-        "contemporaneamente consuma <b>15 bandwidth con subcore Standard</b> "
-        "(3+3+3+4+2) oppure <b>20 bandwidth con subcore High</b> "
-        "(4+4+4+5+3) — il doppio costo del High va valutato in base alle "
-        "+4 skill e ai +75 HP extra per subcore."
+        "contemporaneamente consuma: <b>15 BW con subcore Standard</b> "
+        "(3+3+3+4+2), <b>20 BW con subcore High</b> (4+4+4+5+3), oppure "
+        "<b>25 BW con Persona AI</b> (5+5+5+6+4). L'ultimo scenario è "
+        "possibile solo con un mechanitor con bandwidth massimizzato "
+        "(bandwidth booster + multi-mechanitor setup)."
     ))
     
-    headers = ['Combinazione (tutti Std subcore)', 'BW tot.',
-               'Combinazione (tutti High subcore)', 'BW tot.']
+    headers = ['Combinazione (tutti stesso tier)', 'BW Std',
+               'BW High', 'BW Persona AI']
     rows = [
-        ['Powered Work Loader da solo', '2',
-         'Powered Work Loader (High)', '3'],
-        ['Patriot + Powered Work Loader', '5',
-         'Patriot (High) + Powered Work Loader (High)', '7'],
-        ['2× Patriot + Powered Work Loader', '8',
-         '2× Patriot (High) + Powered Work Loader (High)', '11'],
-        ['Patriot + AMP + Mobile Dragon', '9',
-         'Patriot + AMP + Mobile Dragon (tutti High)', '12'],
-        ['Pirate Brawnson + Patriot + Powered Work Loader', '9',
-         'Brawnson + Patriot + PWL (tutti High)', '12'],
-        ['Tutte e 5 le suit', '15',
-         'Tutte e 5 le suit (tutti High subcore)', '20'],
+        ['Powered Work Loader da solo', '2', '3', '4'],
+        ['Patriot + Powered Work Loader', '5', '7', '9'],
+        ['2× Patriot + Powered Work Loader', '8', '11', '14'],
+        ['Patriot + AMP + Mobile Dragon', '9', '12', '15'],
+        ['Pirate Brawnson + Patriot + Powered Work Loader', '9', '12', '15'],
+        ['Tutte e 5 le suit (combo massima)', '15', '20', '25'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.34, 0.10, 0.34, 0.10]))
-    story.append(cap('Tabella 8.10 — Combinazioni tattiche e bandwidth totale. '
-                      'Con tutti High subcore, il totale saliva da 15 a 20 bandwidth (richiede mechanitor molto avanzato).'))
+    story.append(dt(headers, rows, col_ratios=[0.46, 0.14, 0.18, 0.22]))
+    story.append(cap('Tabella 8.10 — Combinazioni tattiche e bandwidth totale per tier. '
+                      'Con tutti Persona AI, il totale arriva a 25 BW — richiede mechanitor con bandwidth massimizzato.'))
     
     story.append(cb(
         'Bilanciamento iterativo',

@@ -32,18 +32,29 @@ def build_section_06(story, ctx):
         "<code>1/maxEnergyTicks</code> per tick. La <code>maxEnergyTicks</code> "
         "dipende da <b>due fattori</b>: la suit (ogni suit ha un consumo "
         "diverso in base a MoveSpeed, armor e sistemi attivi) e il tier "
-        "del subcore installato. <b>Il subcore High consuma più energia "
-        "del Standard</b> — il processore più potente assorbe di più."
+        "del subcore installato. <b>Tre tier di subcore</b> sono supportati, "
+        "ciascuno con un impatto diverso sulla batteria:"
     ))
+    
+    headers = ['Tier subcore', 'Effetto sulla batteria', 'Razionale lore']
+    rows = [
+        ['Standard', 'Base (100%)',
+         'Processore standard, consumo normale'],
+        ['High', '−25% durata',
+         'Processore più potente, più assorbimento energetico'],
+        ['Persona AI', '+25% durata',
+         'AI senziente ottimizza dinamicamente il consumo'],
+    ]
+    story.append(dt(headers, rows, col_ratios=[0.20, 0.25, 0.55]))
+    story.append(cap('Tabella 6.1 — Effetto del tier subcore sulla durata della batteria. '
+                      'Il Persona AI è l\'unico tier che migliora la batteria rispetto al Standard.'))
     
     story.append(body(
         "In termini numerici, le suit hanno valori di <code>maxEnergyTicks</code> "
         "configurati via XML nel <code>MechExosuitExt</code> (vedi Sezione 8.4 "
-        "per i valori concreti di ciascuna suit). Il subcore High riduce "
-        "la durata effettiva del ~25% rispetto al Standard, perché il "
-        "processore più potente assorbe più energia per tick. Questo "
-        "crea il trade-off: il High dà +4 skill e +75 HP, ma la mech-exosuit "
-        "va ricaricata più spesso."
+        "per i valori concreti di ciascuna suit × tier). Il trade-off del "
+        "Persona AI è che costa <b>+2 BW</b> (vs +1 del High) — il mechanitor "
+        "deve gestire un'entità senziente, non un semplice processore."
     ))
     
     story.append(body(
@@ -119,27 +130,29 @@ def build_section_06(story, ctx):
     story.append(body(
         "Il costo in bandwidth dipende da <b>due fattori</b>: la suit "
         "(definisce il valore base via XML in <code>MechExosuitExt</code>) "
-        "e il tier del subcore installato (il High aggiunge +1 al valore "
-        "base). Il High costa più bandwidth perché il mechanitor deve "
-        "dedicare più \"attenzione\" per gestire un processore più "
-        "complesso."
+        "e il tier del subcore installato. <b>High aggiunge +1</b> al "
+        "valore base; <b>Persona AI aggiunge +2</b>. Il Persona AI costa "
+        "più bandwidth perché il mechanitor deve gestire un'entità "
+        "senziente, non un semplice processore pre-programmato — "
+        "richiede attenzione continua per evitare che l'AI sviluppi "
+        "comportamenti imprevisti."
     ))
     
-    headers = ['Tipo mech', 'BW (Std subcore)', 'BW (High subcore)', 'Note']
+    headers = ['Tipo mech', 'BW (Std)', 'BW (High)', 'BW (Persona AI)', 'Note']
     rows = [
-        ['Vanilla Lifter', '1', '—', 'Mini-mech, solo hauling'],
-        ['Vanilla Constructoid', '2', '—', 'Mini-mech, solo construction'],
-        ['Vanilla Pikeman', '3', '—', 'Combat mech'],
-        ['Vanilla Centipede', '5', '—', 'Heavy combat mech'],
-        ['ModName Patriot', '3', '4', 'Configurabile via XML; vedi Sezione 8'],
-        ['ModName AMP', '3', '4', 'Equivalente a Pikeman'],
-        ['ModName Mobile Dragon', '3', '4', 'Scout veloce, compensa con armor bassa'],
-        ['ModName Pirate Brawnson', '4', '5', 'Tank puro melee'],
-        ['ModName Powered Work Loader', '2', '3', 'Utility, equivalente a Constructoid'],
+        ['Vanilla Lifter', '1', '—', '—', 'Mini-mech, solo hauling'],
+        ['Vanilla Constructoid', '2', '—', '—', 'Mini-mech, solo construction'],
+        ['Vanilla Pikeman', '3', '—', '—', 'Combat mech'],
+        ['Vanilla Centipede', '5', '—', '—', 'Heavy combat mech'],
+        ['ModName Patriot', '3', '4', '5', 'Configurabile via XML; vedi Sezione 8'],
+        ['ModName AMP', '3', '4', '5', 'Equivalente a Pikeman'],
+        ['ModName Mobile Dragon', '3', '4', '5', 'Scout veloce, compensa con armor bassa'],
+        ['ModName Pirate Brawnson', '4', '5', '6', 'Tank puro melee; con AI supera Centipede'],
+        ['ModName Powered Work Loader', '2', '3', '4', 'Utility, equivalente a Constructoid'],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.30, 0.16, 0.16, 0.38]))
+    story.append(dt(headers, rows, col_ratios=[0.28, 0.10, 0.12, 0.16, 0.34]))
     story.append(cap('Tabella 6.3 — Costo in bandwidth per suit × tier subcore. '
-                      'Il subcore High aggiunge +1 a tutte le suit (più skill, più potenza, più attenzione del mechanitor).'))
+                      'High = +1 BW; Persona AI = +2 BW (entità senziente richiede più attenzione del mechanitor).'))
     
     # ── 6.5 Control group integration ──
     story.append(P('<b>6.5 — Integrazione con control group</b>',
