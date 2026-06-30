@@ -32,9 +32,12 @@ def build_section_08(story, ctx):
         'Filosofia di bilanciamento',
         'Le stat meccaniche delle suit (armor, MoveSpeed, HP, slot di equipaggiamento) '
         'sono <b>identiche alle suit originali</b> — non vengono modificate da '
-        '[Mod Name]. Questo garantisce che il flavor e il bilanciamento interno '
-        'di ciascuna suit siano preservati. Le uniche tre variabili che '
-        '[Mod Name] calibra sono: <b>(1) la durata della batteria</b> (Tabella 8.4), '
+        '[Mod Name]. <b>Eccezione: le skill base sono state abbassate</b> in modo '
+        'che nemmeno con Persona AI si superi 18 (cap effettivo della mod, più '
+        'conservativo del cap vanilla 20). Questo garantisce che il bonus del '
+        'Persona AI sia sempre pienamente efficace. '
+        'Le uniche tre variabili che [Mod Name] calibra sono: '
+        '<b>(1) la durata della batteria</b> (Tabella 8.4), '
         '<b>(2) il costo in bandwidth</b> (Tabella 8.1 e 8.9), e <b>(3) il bonus skill</b> '
         'del subcore. '
         '<b>Tre tier di subcore</b> sono supportati, ciascuno con un trade-off diverso: '
@@ -287,58 +290,63 @@ def build_section_08(story, ctx):
         "Le skill del mech-exosuit sono calcolate come <b>sommatoria "
         "della skill base della suit + bonus del subcore</b>. Il bonus "
         "del subcore è +0 per Standard, +4 per High, +8 per Persona AI. "
-        "<b>Il cap vanilla è 20</b> — valori che lo superano vengono "
-        "troncati a 20. La tabella mostra la skill principale di ogni "
-        "suit per tutti e 3 i tier."
+        "<b>Le skill base delle suit sono state abbassate</b> rispetto alle "
+        "stat originali in modo che nemmeno con Persona AI si superi 18 "
+        "(cap effettivo della mod, più conservativo del cap vanilla 20). "
+        "Questo garantisce che il bonus del Persona AI sia sempre pienamente "
+        "efficace e mai sprecato."
     ))
-    
+
     headers = ['Suit', 'Skill principale', 'Std (+0)', 'High (+4)',
                'Persona AI (+8)', 'Note']
     rows = [
-        ['Patriot', 'Shooting', '12', '16', '20 (cap hit)',
-         'Persona AI raggiunge il cap'],
-        ['AMP', 'Shooting', '10', '14', '18',
-         ''],
-        ['Mobile Dragon', 'Shooting', '14', '18', '20 (capped from 22)',
-         'Persona AI supererebbe il cap'],
-        ['Pirate Brawnson', 'Melee', '14', '18', '20 (capped from 22)',
-         'Persona AI supererebbe il cap'],
-        ['Powered Work Loader', 'Construction', '10', '14', '18',
-         ''],
+        ['Patriot', 'Shooting', '10', '14', '18',
+         'Persona AI al limite'],
+        ['AMP', 'Shooting', '8', '12', '16',
+         'Sotto limite'],
+        ['Mobile Dragon', 'Shooting', '10', '14', '18',
+         'Persona AI al limite'],
+        ['Pirate Brawnson', 'Melee', '10', '14', '18',
+         'Persona AI al limite'],
+        ['Powered Work Loader', 'Construction', '8', '12', '16',
+         'Sotto limite'],
     ]
     story.append(dt(headers, rows, col_ratios=[0.18, 0.18, 0.10, 0.10, 0.18, 0.26]))
     story.append(cap('Tabella 8.7 — Matrice skill principale: base suit + bonus subcore. '
-                      'Cap vanilla = 20. 3 suit su 5 raggiungono il cap con Persona AI.'))
-    
+                      'Cap effettivo mod = 18 (sotto il cap vanilla 20). '
+                      '3 suit su 5 arrivano a 18 con Persona AI; nessuna lo supera.'))
+
     story.append(P('<b>8.7.1 — Skill secondaria per suit</b>', ctx['styles']['H3']))
     story.append(body(
         "Ogni suit ha anche una skill secondaria rilevante. La tabella "
-        "sotto mostra i valori per i 3 tier. Anche in questo caso, il "
-        "cap vanilla di 20 viene applicato."
+        "sotto mostra i valori per i 3 tier. Anche in questo caso, "
+        "nessuna combinazione supera 18."
     ))
-    
+
     headers = ['Suit', 'Skill secondaria', 'Std (+0)', 'High (+4)',
                'Persona AI (+8)', 'Note']
     rows = [
-        ['Patriot', 'Melee', '8', '12', '16', ''],
-        ['AMP', 'Melee', '10', '14', '18', ''],
-        ['Mobile Dragon', 'Melee', '6', '10', '14', ''],
-        ['Pirate Brawnson', 'Shooting', '8', '12', '16', ''],
-        ['Powered Work Loader', 'Mining', '8', '12', '16', ''],
+        ['Patriot', 'Melee', '6', '10', '14', ''],
+        ['AMP', 'Melee', '8', '12', '16', 'Sotto limite'],
+        ['Mobile Dragon', 'Melee', '4', '8', '12', ''],
+        ['Pirate Brawnson', 'Shooting', '6', '10', '14', ''],
+        ['Powered Work Loader', 'Mining', '6', '10', '14', ''],
     ]
     story.append(dt(headers, rows, col_ratios=[0.18, 0.18, 0.10, 0.10, 0.18, 0.26]))
     story.append(cap('Tabella 8.7.1 — Matrice skill secondaria. '
-                      'Nessuna suit raggiunge il cap di 20 sulla skill secondaria nemmeno con Persona AI.'))
-    
+                      'Nessuna suit supera 18 nemmeno con Persona AI.'))
+
     story.append(cb(
-        'Implicazione del cap a 20',
-        'Tre suit su cinque (Patriot, Mobile Dragon, Pirate Brawnson) raggiungono il cap di 20 '
-        'sulla skill principale con Persona AI. Questo significa che il bonus skill del Persona AI '
-        '(+8) è <b>parzialmente sprecato</b> per queste suit: il giocatore paga +2 BW e +25% battery '
-        'per un bonus effettivo minore del previsto. Il Persona AI è quindi più efficiente per '
-        'suit con skill base bassa (AMP, Powered Work Loader), dove il +8 si traduce in un miglioramento '
-        'reale. Questo è un bilanciamento emergente: il giocatore deve scegliere con cura quale suit '
-        'meriti il Persona AI.',
+        'Cap effettivo della mod = 18',
+        'A differenza del cap vanilla di 20, [Mod Name] mantiene un cap effettivo di 18 '
+        'abbassando le skill base delle suit. Questo ha tre vantaggi: '
+        '<b>(1)</b> il bonus del Persona AI (+8) è sempre pienamente efficace, mai sprecato; '
+        '<b>(2)</b> nessuna combinazione suit×tier crea uno "scaling" eccessivo che rompe '
+        'il bilanciamento tattico; '
+        '<b>(3)</b> lascia spazio per futuri upgrade (es. livello di ricerca avanzato, '
+        'o buff temporanei) senza superare il cap vanilla. '
+        'Il giocatore deve quindi scegliere con cura quale suit meriti il Persona AI '
+        'in base al ruolo, non in base a quale "spreca" meno il bonus.',
         color=ctx['colors']['accent2']
     ))
     
@@ -425,7 +433,7 @@ def build_section_08(story, ctx):
         "<b>Il Persona AI è il primo caso in cui una nostra suit supera "
         "il Centipede vanilla in bandwidth cost</b> (Brawnson + Persona AI "
         "= 6 BW vs Centipede 5). Questo è bilanciato dal fatto che il "
-        "Brawnson + Persona AI ha +8 skill (Melee 14→20, cap vanilla), "
+        "Brawnson + Persona AI ha +8 skill (Melee 10→18, cap effettivo mod), "
         "+150 HP subcore, e +25% battery. È una forza tattica che il "
         "giocatore può fieldare solo se ha un mechanitor estremamente "
         "avanzato (richiede molti bandwidth boost)."
