@@ -286,22 +286,61 @@ def build_section_08(story, ctx):
     story.append(body(
         "Le skill del mech-exosuit sono calcolate come <b>sommatoria "
         "della skill base della suit + bonus del subcore</b>. Il bonus "
-        "del subcore è 0 per Standard, +4 per High. La tabella mostra "
-        "le 2 skill più rilevanti per ogni suit (con entrambi i tier "
-        "di subcore)."
+        "del subcore è +0 per Standard, +4 per High, +8 per Persona AI. "
+        "<b>Il cap vanilla è 20</b> — valori che lo superano vengono "
+        "troncati a 20. La tabella mostra la skill principale di ogni "
+        "suit per tutti e 3 i tier."
     ))
     
-    headers = ['Suit', 'Skill principale', 'Con Std', 'Con High', 'Skill secondaria', 'Con Std', 'Con High']
+    headers = ['Suit', 'Skill principale', 'Std (+0)', 'High (+4)',
+               'Persona AI (+8)', 'Note']
     rows = [
-        ['Patriot', 'Shooting', '12', '16', 'Melee', '8', '12'],
-        ['AMP', 'Shooting', '10', '14', 'Melee', '10', '14'],
-        ['Mobile Dragon', 'Shooting', '14', '18', 'Melee', '6', '10'],
-        ['Pirate Brawnson', 'Melee', '14', '18', 'Shooting', '8', '12'],
-        ['Powered Work Loader', 'Construction', '10', '14', 'Mining', '8', '12'],
+        ['Patriot', 'Shooting', '12', '16', '20 (cap hit)',
+         'Persona AI raggiunge il cap'],
+        ['AMP', 'Shooting', '10', '14', '18',
+         ''],
+        ['Mobile Dragon', 'Shooting', '14', '18', '20 (capped from 22)',
+         'Persona AI supererebbe il cap'],
+        ['Pirate Brawnson', 'Melee', '14', '18', '20 (capped from 22)',
+         'Persona AI supererebbe il cap'],
+        ['Powered Work Loader', 'Construction', '10', '14', '18',
+         ''],
     ]
-    story.append(dt(headers, rows, col_ratios=[0.20, 0.16, 0.08, 0.08, 0.16, 0.08, 0.08]))
-    story.append(cap('Tabella 8.7 — Matrice skill: base suit + bonus subcore. '
-                      'Il Pirate Brawnson è l\'unica suit con Melee come skill principale (tank role).'))
+    story.append(dt(headers, rows, col_ratios=[0.18, 0.18, 0.10, 0.10, 0.18, 0.26]))
+    story.append(cap('Tabella 8.7 — Matrice skill principale: base suit + bonus subcore. '
+                      'Cap vanilla = 20. 3 suit su 5 raggiungono il cap con Persona AI.'))
+    
+    story.append(P('<b>8.7.1 — Skill secondaria per suit</b>', ctx['styles']['H3']))
+    story.append(body(
+        "Ogni suit ha anche una skill secondaria rilevante. La tabella "
+        "sotto mostra i valori per i 3 tier. Anche in questo caso, il "
+        "cap vanilla di 20 viene applicato."
+    ))
+    
+    headers = ['Suit', 'Skill secondaria', 'Std (+0)', 'High (+4)',
+               'Persona AI (+8)', 'Note']
+    rows = [
+        ['Patriot', 'Melee', '8', '12', '16', ''],
+        ['AMP', 'Melee', '10', '14', '18', ''],
+        ['Mobile Dragon', 'Melee', '6', '10', '14', ''],
+        ['Pirate Brawnson', 'Shooting', '8', '12', '16', ''],
+        ['Powered Work Loader', 'Mining', '8', '12', '16', ''],
+    ]
+    story.append(dt(headers, rows, col_ratios=[0.18, 0.18, 0.10, 0.10, 0.18, 0.26]))
+    story.append(cap('Tabella 8.7.1 — Matrice skill secondaria. '
+                      'Nessuna suit raggiunge il cap di 20 sulla skill secondaria nemmeno con Persona AI.'))
+    
+    story.append(cb(
+        'Implicazione del cap a 20',
+        'Tre suit su cinque (Patriot, Mobile Dragon, Pirate Brawnson) raggiungono il cap di 20 '
+        'sulla skill principale con Persona AI. Questo significa che il bonus skill del Persona AI '
+        '(+8) è <b>parzialmente sprecato</b> per queste suit: il giocatore paga +2 BW e +25% battery '
+        'per un bonus effettivo minore del previsto. Il Persona AI è quindi più efficiente per '
+        'suit con skill base bassa (AMP, Powered Work Loader), dove il +8 si traduce in un miglioramento '
+        'reale. Questo è un bilanciamento emergente: il giocatore deve scegliere con cura quale suit '
+        'meriti il Persona AI.',
+        color=ctx['colors']['accent2']
+    ))
     
     # ── 8.8 Survival formula ──
     story.append(P('<b>8.8 — Formula di recupero (uniforme)</b>',
@@ -386,7 +425,7 @@ def build_section_08(story, ctx):
         "<b>Il Persona AI è il primo caso in cui una nostra suit supera "
         "il Centipede vanilla in bandwidth cost</b> (Brawnson + Persona AI "
         "= 6 BW vs Centipede 5). Questo è bilanciato dal fatto che il "
-        "Brawnson + Persona AI ha +8 skill (Melee 14→22, vicino al cap), "
+        "Brawnson + Persona AI ha +8 skill (Melee 14→20, cap vanilla), "
         "+150 HP subcore, e +25% battery. È una forza tattica che il "
         "giocatore può fieldare solo se ha un mechanitor estremamente "
         "avanzato (richiede molti bandwidth boost)."

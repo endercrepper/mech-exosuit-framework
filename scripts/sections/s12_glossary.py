@@ -30,7 +30,7 @@ def build_section_12(story, ctx):
         ['Persona Core', 'vanilla',
          'Item raro di RimWorld vanilla. Normalmente usato per pilotare ship AI. In [Mod Name] è un ingrediente per craftare il Persona AI Subcore.'],
         ['Persona AI Subcore (ModName_SubcorePersonaAI)', '[Mod Name]',
-         'Nuovo ThingDef custom della mod. Tier 3 del sistema subcore: +8 skill, 250 HP, +2 BW, +25% battery rispetto al Standard. Craftato a partire da un Persona Core vanilla.'],
+         'Nuovo ThingDef custom della mod. Tier 3 del sistema subcore: +8 skill (cap vanilla 20), 250 HP, +2 BW, +25% battery rispetto al Standard. Craftato a partire da un Persona Core vanilla.'],
         ['Bandwidth', 'vanilla',
          'Risorsa del mechanitor che limita il numero di mech assegnabili. Ogni mech ha un bandwidthCost (1-5). I mech-exosuit consumano bandwidth come mech vanilla.'],
         ['Mechanitor', 'vanilla',
