@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    M0 — Hello World Mech
+    ThingDef race custom minimale per il Patriot Mech-Exosuit.
+    Eredita da BaseMechanoid (vanilla) e aggiunge solo le stat base.
+    Nessun Comp custom in M0 — quelli arrivano in M1.
+  -->
+
+  <ThingDef ParentName="BaseMechanoid">
+    <defName>ModName_MechExosuitRace_Patriot</defName>
+    <label>EXO-45 Patriot Mech-Exosuit (M0 test)</label>
+    <description>Una variante mech-piloted della Patriot Exosuit. Questo e' un mech-exosuit di test per la milestone M0: solo la struttura base, senza subcore pilot, senza batteria, senza bay ibrida. Verra' arricchito nelle milestone successive.</description>
+    <uiIconPath>Things/Pawn/MechExosuit_Patriot/MechExosuit_Patriot_south</uiIconPath>
+
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <MoveSpeed>3.5</MoveSpeed>
+      <ArmorRating_Sharp>1.70</ArmorRating_Sharp>
+      <ArmorRating_Blunt>1.80</ArmorRating_Blunt>
+      <ArmorRating_Heat>1.50</ArmorRating_Heat>
+      <MarketValue>3500</MarketValue>
+      <LeatherAmount>0</LeatherAmount>
+      <MeatAmount>0</MeatAmount>
+      <Flammability>0</Flammability>
+    </statBases>
+
+    <race>
+      <thinkTree>Mechanoid</thinkTree>
+      <body>Mechanoid</body>
+      <baseBodySize>1.8</baseBodySize>
+      <baseHealthScale>1.5</baseHealthScale>
+      <baseHungerRate>0</baseHungerRate>
+      <lifeExpectancy>2000</lifeExpectancy>
+      <intelligence>ToolUser</intelligence>
+      <makesFootprints>true</makesFootprints>
+      <nameCategory>AnimalGeneric</nameCategory>
+      <trainability>None</trainability>
+      <wildness>0</wildness>
+      <manhunterOnTameFailChance>0</manhunterOnTameFailChance>
+      <manhunterOnDamageChance>0</manhunterOnDamageChance>
+      <fleshType>Mechanoid</fleshType>
+      <bloodDef>Filth_MechSlime</bloodDef>
+      <soundMeleeHitPawn>Pawn_MechanoidBerserkSlash</soundMeleeHitPawn>
+      <soundMeleeHitBuilding>Pawn_MechanoidBerserkSlash</soundMeleeHitBuilding>
+      <soundMeleeMiss>Pawn_MeleeAttack_Dodge</soundMeleeMiss>
+      <soundCall>Pawn_Mechanoid_Warcaller_Call</soundCall>
+      <soundDeath>Pawn_Mechanoid_Death</soundDeath>
+      <soundWounded>Pawn_Mechanoid_Wounded</soundWounded>
+    </race>
+
+    <tools>
+      <li>
+        <label>stomp</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>30</power>
+        <cooldownTime>2.0</cooldownTime>
+        <linkedBodyPartsGroup>Feet</linkedBodyPartsGroup>
+      </li>
+      <li>
+        <label>head</label>
+        <capacities>
+          <li>Blunt</li>
+        </capacities>
+        <power>15</power>
+        <cooldownTime>2.6</cooldownTime>
+        <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+        <chanceFactor>0.2</chanceFactor>
+      </li>
+    </tools>
+
+    <comps>
+      <!-- Vanilla mech comps required for mechanitor integration -->
+      <li Class="CompProperties_OverseerSubject">
+        <aggressiveRewardEffect>WarbwalkerEffect</aggressiveRewardEffect>
+        <workRewardEffect>WorkerEffect</workRewardEffect>
+        <bandwidthCost>3</bandwidthCost>
+      </li>
+      <li Class="CompProperties_MechEnergy" />
+      <li Class="CompProperties_Flickable" />
+      <!-- CompProperties_MechCharger è vanilla: serve per i charger standard.
+           In M0 lo lasciamo per semplicità; in M4 verrà disattivato via patch. -->
+    </comps>
+
+    <modExtensions>
+      <!-- ModExtension per identificare i nostri mech-exosuit (usato da M1+ per i filtri) -->
+      <li Class="ModName.MechExosuitExt">
+        <sourceApparelDef>Aqued_Exosuit_Apparel_Core</sourceApparelDef>
+        <supportedJobs>
+          <li>Violent</li>
+          <li>Firefighter</li>
+        </supportedJobs>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+</Defs>

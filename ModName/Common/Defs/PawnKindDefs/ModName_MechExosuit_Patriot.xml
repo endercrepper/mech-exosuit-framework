@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    M0 — Hello World Mech
+    PawnKindDef custom minimale per il Patriot Mech-Exosuit.
+    Eredita da BaseMechanoidKind (vanilla).
+  -->
+
+  <PawnKindDef ParentName="BaseMechanoidKind">
+    <defName>ModName_MechExosuit_Patriot</defName>
+    <label>Patriot Mech-Exosuit</label>
+    <race>ModName_MechExosuitRace_Patriot</race>
+    <combatPower>350</combatPower>
+    <isFighter>true</isFighter>
+    <lifeStages>
+      <li>
+        <label>operative</label>
+        <visible>true</visible>
+        <graphicData>
+          <texPath>Things/Pawn/MechExosuit_Patriot/MechExosuit_Patriot</texPath>
+          <graphicClass>Graphic_Multi</graphicClass>
+          <drawSize>(3,3)</drawSize>
+          <shaderType>CutoutComplex</shaderType>
+        </graphicData>
+      </li>
+    </lifeStages>
+  </PawnKindDef>
+
+</Defs>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ModName.csproj — Project file for Visual Studio / Rider / dotnet CLI
+  Target framework: .NET Framework 4.8 (required by RimWorld 1.6)
+  
+  BEFORE OPENING IN VISUAL STUDIO:
+  1. Set the RIMWORLD_DIR environment variable to your RimWorld install path
+     Example (Windows):  set RIMWORLD_DIR=C:\Steam\steamapps\common\RimWorld
+     Example (Linux):    export RIMWORLD_DIR=/home/USER/.steam/steam/steamapps/common/RimWorld
+     Example (macOS):    export RIMWORLD_DIR=/Users/USER/Library/Application Support/Steam/steamapps/common/RimWorld
+  
+  2. Set the EXOSUIT_FRAMEWORK_DIR environment variable to your Exosuit Framework install path
+     Example (Windows):  set EXOSUIT_FRAMEWORK_DIR=C:\Steam\steamapps\common\RimWorld\Mods\3352894993
+     (Use the Workshop ID directory name; check your Mods folder)
+  
+  3. Open ModName.sln in Visual Studio / Rider
+  
+  4. Build (Release config) — the post-build event copies the DLL to:
+     ..\..\1.6\Assemblies\ModName.dll (relative to bin\Release\net48\)
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>ModName</AssemblyName>
+    <RootNamespace>ModName</RootNamespace>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Platforms>x64</Platforms>
+    <Configuration>Release</Configuration>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <!--
+    Reference paths.
+    We use environment variables so the .csproj is portable across machines.
+    If you don't want to use env vars, hardcode the paths here.
+  -->
+  <PropertyGroup>
+    <RimWorldDir>$(RIMWORLD_DIR)</RimWorldDir>
+    <ExosuitFrameworkDir>$(EXOSUIT_FRAMEWORK_DIR)</ExosuitFrameworkDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- RimWorld core DLLs -->
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <!-- Harmony (brrainz.harmony) -->
+    <Reference Include="0Harmony">
+      <HintPath>$(RimWorldDir)\RimWorldWin64_Data\Managed\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <!-- Exosuit Framework (aoba.exosuit.framework) -->
+    <Reference Include="Exosuit">
+      <HintPath>$(ExosuitFrameworkDir)\1.6\Assemblies\Exosuit.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0MultiplayerAPI">
+      <HintPath>$(ExosuitFrameworkDir)\1.6\Assemblies\0MultiplayerAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Post-build: copy DLL to 1.6/Assemblies/ -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ProjectDir)..\..\1.6\Assemblies\" />
+    <Message Text="[ModName] Copied $(TargetFileName) to ..\..\1.6\Assemblies\" Importance="high" />
+  </Target>
+
+</Project>

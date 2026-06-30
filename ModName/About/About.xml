@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>[Mod Name]</name>
+  <author>endercrepper</author>
+  <packageId>endercrepper.mechexosuit.framework</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>Mech-Exosuit Framework: exosuit meccanoid-guidate con subcore vanilla come pilota interno.
+
+[Status: M0 — Hello World Mech]
+This is the very first milestone. It only adds a single test mech-exosuit (Patriot placeholder) that can be spawned via dev mode. None of the core features (subcore pilot, battery, bay, etc.) are implemented yet — those come in M1-M7.
+
+Required mods:
+- Exosuit Framework (aoba.exosuit.framework)
+- Harmony (brrainz.harmony)
+
+Roadmap:
+- M0 (this) — Hello World Mech: spawn a custom mech-exosuit via dev mode
+- M1 — Subcore Install: CompSubcorePilot + HP tracking
+- M2 — Death &amp; Relic: drop sealed relic, deterministic recovery
+- M3 — Bay Ibrida: Building_HybridGestator with 4 functions
+- M4 — Batteria &amp; Bandwidth: low power mode, charging
+- M5 — SubcoreInfo Integration: identity propagation
+- M6 — CE Compat: Combat Extended patches
+- M7 — Polish &amp; Bilanciamento: playtesting, textures, release</description>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=2009463077</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>aoba.exosuit.framework</packageId>
+      <displayName>Exosuit Framework</displayName>
+      <steamWorkshopUrl>https://steamcommunity.com/sharedfiles/filedetails/?id=3352894993</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>brrainz.harmony</li>
+    <li>aoba.exosuit.framework</li>
+  </loadAfter>
+</ModMetaData>

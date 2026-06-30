@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loadFolders>
+  <li IfModActive="endercrepper.mechexosuit.framework">/</li>
+  <li IfModActive="endercrepper.mechexosuit.framework" IfModActive_1="aoba.exosuit.framework">/</li>
+  <li>v1.6</li>
+  <li IfModActive="ceteam.combatextended" IfModActive_1="endercrepper.mechexosuit.framework">1.6/CE</li>
+</loadFolders>
